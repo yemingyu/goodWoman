@@ -1,0 +1,2 @@
+/* gwsearch.wxss */
+@import "../component/wxSearchView/wxSearchView.wxss";

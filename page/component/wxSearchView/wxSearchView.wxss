@@ -88,14 +88,14 @@
 
 .weui-search-bar {
   position: relative;
-  padding: 8px 10px;
+  padding: 3px 3px;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
   box-sizing: border-box;
   background-color: #efeff4;
-  border-top: 1rpx solid #d7d6dc;
-  border-bottom: 1rpx solid #d7d6dc;
+  /* border-top: 1rpx solid #d7d6dc; */
+  /* border-bottom: 1rpx solid #d7d6dc; */
 }
 
 .weui-icon-search {

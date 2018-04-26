@@ -1,14 +1,14 @@
 {
   "pages": [
     "page/home",
-    "page/account/account"
+    "page/account/account",
+    "page/search/gwsearch"
   ],
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "首页",
     "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#3cc51f",
-    "enablePullDownRefresh": true
+    "backgroundColor": "#3cc51f"
   },
   "tabBar": {
     "color": "#7A7E83",

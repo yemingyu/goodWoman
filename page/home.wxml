@@ -1,9 +1,44 @@
 <!--Page/home.wxml-->
-<!-- <include src="component/wxSearchView/wxSearchView.wxml" /> -->
+  <view class='test' hidden="{{hiddenSearch}}">
+    <include src="component/wxSearchView/wxSearchView.wxml" />    
+ </view>  
+
+
 
 <!-- <text>Page/home.wxml</text> -->
 
-<view class="product-list">
+<!-- <view class="gwsearchview" hidden="false">
+  <include src="component/wxSearchView/wxSearchView.wxml" />
+<text>Page/home.wxml</text>
+
+</view> -->
+
+<view class="homeall" hidden="{{!hiddenSearch}}">
+
+<view class="gwui-search-bar">
+  <view class="gwui-search-bar__form">
+    <view class="gwui-search-bar__box">
+      <icon class="gwui-icon-search_in-box" type="search" size="14"></icon>
+
+<input type="text" class="gwui-search-bar__input" placeholder="请输入查询内容" bindtap='gwsearchOpenNavigate' disabled='true' />
+      <!-- <input type="text" class="gwui-search-bar__input" placeholder="请输入查询内容" value="{{wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" /> -->
+
+      <!-- <view class="weui-icon-clear" wx:if="{{wxSearchData.value.length > 0}}" bindtap="wxSearchClear">
+        <icon type="clear" size="14"></icon>
+      </view> -->
+    </view>
+  </view> 
+
+  <view>
+     <view class="gwui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
+         <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>新建</text>
+         <text wx:else data-key='back'>新建</text>
+     </view> 
+  </view>
+
+</view> 
+
+<view class="product-list111">
   <!--条件选择-->
   <view class="choice-bar">
     <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">{{activeDistrictName}}
@@ -58,4 +93,6 @@
   </view>
   <!-- <import src="../template/template.wxml" /> -->
   <!-- <template is="loading" data="{{isLoading,loadOver}}" />  -->
+</view>
+
 </view>
