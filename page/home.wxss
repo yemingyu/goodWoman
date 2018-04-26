@@ -101,7 +101,7 @@
 .product-list {
   min-height: 100vh;
   background-color: #f0f0f0;
-  padding-top: 0rpx;
+  padding-top: 80rpx;
   box-sizing: border-box;
 }
 
@@ -145,7 +145,7 @@
 }
 .mask{
   position: fixed;
-  top:0;
+  top:80rpx;
   bottom: 0;
   right: 0;
   left: 0;
@@ -166,7 +166,7 @@
 
 .chioce-list-show {
   top: 80rpx;
-  animation: slide 500ms;
+  animation: slide 0ms;
 }
 
 @keyframes slide {
