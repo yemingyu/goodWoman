@@ -39,6 +39,44 @@ const firstPage = [{
     expiredDate: "七天后6"
   }]
 
+  const secondPage = [
+  {
+    id: "7",
+    category: "水果7",
+    title: "苹果7",
+    expiredDate: "七天后7"
+  },
+  {
+    id: "8",
+    category: "水果8",
+    title: "苹果8",
+    expiredDate: "七天后8"
+  },
+  {
+    id: "9",
+    category: "水果9",
+    title: "苹果9",
+    expiredDate: "七天后9"
+  },
+  {
+    id: "10",
+    category: "水果10",
+    title: "苹果10",
+    expiredDate: "七天后10"
+  },
+  {
+    id: "11",
+    category: "水果11",
+    title: "苹果11",
+    expiredDate: "七天后11"
+  },
+  {
+    id: "12",
+    category: "水果12",
+    title: "苹果12",
+    expiredDate: "七天后12"
+  }]
+
 
 Page({
 
@@ -94,8 +132,12 @@ Page({
     activeSortingIndex: -1,
     activeSortingName: "综合排序",
 
-    things:[]
+    things:[],
 
+    searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
+    searchLoadingComplete: false,  //“没有数据”的变量，默认false，隐藏 
+    searchPageNum: 1,   // 设置加载的第几次，默认是第一次  
+    callbackcount: 6,      //返回数据的个数  
   },
 
   /**
@@ -441,5 +483,59 @@ Page({
       isLoading: true
     })
     //this.getProductList();
+  },
+
+
+  searchScrollLower: function () {
+    let that = this;
+    // console.log("yemingyu")
+
+    that.setData({
+      searchLoading: true,  //把"上拉加载"的变量设为true，显示  
+    })  
+
+
+    if (that.data.searchLoading && !that.data.searchLoadingComplete) {
+      that.setData({
+        searchPageNum: that.data.searchPageNum + 1,  //每次触发上拉事件，把searchPageNum+1  
+        isFromSearch: false  //触发到上拉事件，把isFromSearch设为为false  
+      });
+      that.fetchSearchList();
+    }
+  },
+  //搜索，访问网络  
+  fetchSearchList: function () {
+    let that = this;
+    // let searchKeyword = that.data.searchKeyword,//输入框字符串作为参数  
+    //   searchPageNum = that.data.searchPageNum,//把第几次加载次数作为参数  
+    //   callbackcount = that.data.callbackcount; //返回数据的个数  
+    // //访问网络  
+    // util.getSearchMusic(searchKeyword, searchPageNum, callbackcount, function (data) {
+    //   console.log(data)
+
+    setTimeout(()=>{
+      // if (data.data.song.curnum != 0) {
+      if (secondPage != null) {
+
+        let searchList = [];
+        //如果isFromSearch是true从data中取出数据，否则先从原来的数据继续添加  
+        that.data.isFromSearch ? searchList = that.data.things : searchList = that.data.things.concat(secondPage)
+        that.setData({
+          things: searchList, //获取数据数组  
+          // zhida: data.data.zhida, //存放歌手属性的对象  
+          searchLoading: true   //把"上拉加载"的变量设为false，显示  
+        });
+        //没有数据了，把“没有数据”显示，把“上拉加载”隐藏  
+      } else {
+        that.setData({
+          searchLoadingComplete: true, //把“没有数据”设为true，显示  
+          searchLoading: false  //把"上拉加载"的变量设为false，隐藏  
+        });
+      }
+    }, 1500);
+
+    //   //判断是否有数据，有则取数据  
+      
+    // })
   }
 })

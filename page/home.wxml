@@ -1,5 +1,7 @@
 <!--Page/home.wxml-->
 
+
+
 <view class='homeallview'>
 
   <view class='test' hidden="{{hiddenSearch}}">
@@ -98,10 +100,13 @@
   <!-- <template is="loading" data="{{isLoading,loadOver}}" />  -->
 
 
+<view class='thingsall'>
+<!-- <scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="searchScrollLower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}"> -->
+<scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltolower="searchScrollLower" >
 
 <!-- TODO：物品展示列表 scrollview  -->
 <!-- 参考天气，然后根据各种筛选setData  -->
-<view class='thingsall'>
+<!-- <view class='thingsall'> -->
   <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
     <!-- <image src='/image/plus.png' data-id="{{thing.id}}"></image> -->
     <view class="thingsDescription" data-id="{{thing.id}}" bindtap='selectThing'>
@@ -110,15 +115,24 @@
       <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>
     </view>
   </view>
+
+  <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
+  <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> 
+<!-- </view> -->
+
+
+</scroll-view>
+
+</view>
+
+</view>
+
+
+
+
+
 </view>
 
 </view>
 
-
-
-
-
-</view>
-
-</view>
 
