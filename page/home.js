@@ -2,6 +2,44 @@
 
 var WxSearch = require('component/wxSearchView/wxSearchView.js');
 
+const firstPage = [{
+  id: "1",
+  category: "水果1",
+  title: "苹果1",
+  expiredDate: "七天后1"
+},
+  {
+    id: "2",
+    category: "水果2",
+    title: "苹果2",
+    expiredDate: "七天后2"
+  },
+  {
+    id: "3",
+    category: "水果3",
+    title: "苹果3",
+    expiredDate: "七天后3"
+  },
+  {
+    id: "4",
+    category: "水果4",
+    title: "苹果4",
+    expiredDate: "七天后4"
+  },
+  {
+    id: "5",
+    category: "水果5",
+    title: "苹果5",
+    expiredDate: "七天后5"
+  },
+  {
+    id: "6",
+    category: "水果6",
+    title: "苹果6",
+    expiredDate: "七天后6"
+  }]
+
+
 Page({
 
   /**
@@ -54,7 +92,10 @@ Page({
     scrollTop: 0,
     scrollIntoView: 0,
     activeSortingIndex: -1,
-    activeSortingName: "综合排序"
+    activeSortingName: "综合排序",
+
+    things:[]
+
   },
 
   /**
@@ -71,6 +112,8 @@ Page({
       that.mySearchFunction, // 提供一个搜索回调函数
       that.myGobackFunction //提供一个返回回调函数
     );
+
+    this.getThings();
 
   },
 
@@ -132,6 +175,14 @@ Page({
     that.setData({
       hiddenSearch: false
     })
+  },
+
+  getThings: function () {
+    setTimeout(()=>{
+      this.setData({
+        things: firstPage
+      })
+    }, 1000)
   },
 
 

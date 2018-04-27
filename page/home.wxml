@@ -1,4 +1,7 @@
 <!--Page/home.wxml-->
+
+<view class='homeallview'>
+
   <view class='test' hidden="{{hiddenSearch}}">
     <include src="component/wxSearchView/wxSearchView.wxml" />    
  </view>  
@@ -38,7 +41,7 @@
 
 </view> 
 
-<view class="product-list111">
+<view class="product-list">
   <!--条件选择-->
   <view class="choice-bar">
     <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">{{activeDistrictName}}
@@ -93,6 +96,28 @@
   </view>
   <!-- <import src="../template/template.wxml" /> -->
   <!-- <template is="loading" data="{{isLoading,loadOver}}" />  -->
+
+
+
+<!-- TODO：物品展示列表 scrollview  -->
+<!-- 参考天气，然后根据各种筛选setData  -->
+<view class='thingsall'>
+  <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
+    <!-- <image src='/image/plus.png' data-id="{{thing.id}}"></image> -->
+    <view>
+      <view data-id="{{thing.id}}">{{thing.title}}</view>
+      <view>{{thing.expiredDate}}</view>
+    </view>
+  </view>
 </view>
 
 </view>
+
+
+
+
+
+</view>
+
+</view>
+
