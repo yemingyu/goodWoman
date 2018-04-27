@@ -2,7 +2,8 @@
   "pages": [
     "page/home",
     "page/account/account",
-    "page/search/gwsearch"
+    "page/search/gwsearch",
+    "page/thingDetails/thingDetails"
   ],
   "window": {
     "navigationBarTextStyle": "black",

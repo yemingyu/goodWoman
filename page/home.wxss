@@ -273,9 +273,43 @@
   position: relative;
   top: 0rpx;
   width: 750rpx;
+  /* display: flex; */
 }
 
-.thingslist{
+.thingsDescription {
+  /* position: relative;
+  display: flex;
   height: 200rpx;
-  background: #09bb07;  
+  background: #09bb07;   */
+    position: relative; 
+  top: 0rpx;
+  display: flex; 
+   /* width: 100vw;  */
+  font-size: 16px;
+  background-color: #fff;
 } 
+
+.thingsBasic {
+  display: flex;
+  background: #ff0000;  
+   align-items: center; 
+   justify-content: space-between; 
+  padding: 0 20rpx;
+   width: 33.33%; 
+   height: 80rpx; 
+  border-top: 1rpx solid #ddd;
+  border-bottom: 1rpx solid #ddd;
+  border-left: 1rpx solid #ddd;
+}
+
+.thingCategory{
+  background: #ff0000;  
+}
+
+.thingTitle{
+  background: #00ff00;  
+}
+
+.thingExpiredDate{
+  background: #0000ff;  
+}

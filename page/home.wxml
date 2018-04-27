@@ -104,9 +104,10 @@
 <view class='thingsall'>
   <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
     <!-- <image src='/image/plus.png' data-id="{{thing.id}}"></image> -->
-    <view>
-      <view data-id="{{thing.id}}">{{thing.title}}</view>
-      <view>{{thing.expiredDate}}</view>
+    <view class="thingsDescription" data-id="{{thing.id}}" bindtap='selectThing'>
+      <view class='thingsBasic thingCategory'>{{thing.category}}</view>
+      <view class='thingsBasic thingTitle'>{{thing.title}}</view>
+      <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>
     </view>
   </view>
 </view>

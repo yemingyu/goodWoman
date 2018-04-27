@@ -1,0 +1,7 @@
+<!--page/thingDetails/thingDetails.wxml-->
+<text>page/thingDetails/thingDetails.wxml</text>
+
+<view>{{thing.title}}</view>
+<view>{{thing.category}}</view>
+<view>{{thing.content}}</view>
+<view>{{thing.id}}</view>
