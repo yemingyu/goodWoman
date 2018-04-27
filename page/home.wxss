@@ -12,6 +12,7 @@
   box-sizing: border-box;
   background-color: #efeff4; 
   width: 750rpx;
+  z-index: 2;
   /* height: 80rpx; */
   /* background-color: #000; */
   /* border-top: 1rpx solid #d7d6dc; */
@@ -152,6 +153,7 @@
   left: 0;
   background-color: #000;
   opacity: 0.5;
+  z-index: 1;
 }
 .district-list,.sorting-list,.filter-list {
   margin-top: 2rpx;

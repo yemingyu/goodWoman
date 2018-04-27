@@ -126,7 +126,7 @@ Page({
     chioceFilter: false,
     activeDistrictParentIndex: -1,
     activeDistrictChildrenIndex: -1,
-    activeDistrictName: "区域位置",
+    activeDistrictName: "类别",
     scrollTop: 0,
     scrollIntoView: 0,
     activeSortingIndex: -1,
@@ -520,6 +520,7 @@ Page({
         let searchList = [];
         //如果isFromSearch是true从data中取出数据，否则先从原来的数据继续添加  
         that.data.isFromSearch ? searchList = that.data.things : searchList = that.data.things.concat(secondPage)
+        
         that.setData({
           things: searchList, //获取数据数组  
           // zhida: data.data.zhida, //存放歌手属性的对象  
