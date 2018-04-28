@@ -250,10 +250,11 @@ Page({
   wxSearchDeleteAll: WxSearch.wxSearchDeleteAll, // 删除所有的历史记录
   // wxSearchConfirm: WxSearch.wxSearchConfirm,  // 搜索函数
 
-  wxSearchConfirm: function (e) {
+  wxSearchAddNew: function (e) {
     var that = this;
-    that.setData({
-      hiddenSearch: true
+    console.log(e);
+    wx.navigateTo({
+      url: 'newThing/newThing',
     })
   },
 

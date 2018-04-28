@@ -1,138 +1,104 @@
 <!--Page/home.wxml-->
 
 
-
-<view class='homeallview'>
-
-  <view class='test' hidden="{{hiddenSearch}}">
-    <include src="component/wxSearchView/wxSearchView.wxml" />    
- </view>  
-
-
-
-<!-- <text>Page/home.wxml</text> -->
-
-<!-- <view class="gwsearchview" hidden="false">
-  <include src="component/wxSearchView/wxSearchView.wxml" />
-<text>Page/home.wxml</text>
-
-</view> -->
+<!-- 搜索界面，点击首页的searchbar进入，进入时会隐藏首页  -->
+<view class='home-search-bar' hidden="{{hiddenSearch}}">
+  <include src="component/wxSearchView/wxSearchView.wxml" />    
+</view>
 
 <view class="homeall" hidden="{{!hiddenSearch}}">
+  <!-- 整个home页在一个scroll-view中  -->
+  <scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltolower="xxxx" >
 
-<view class="gwui-search-bar">
-  <view class="gwui-search-bar__form">
-    <view class="gwui-search-bar__box">
-      <icon class="gwui-icon-search_in-box" type="search" size="14"></icon>
-
-<input type="text" class="gwui-search-bar__input" placeholder="请输入查询内容" bindtap='gwsearchOpenNavigate' disabled='true' />
-      <!-- <input type="text" class="gwui-search-bar__input" placeholder="请输入查询内容" value="{{wxSearchData.value}}" bindinput="wxSearchInput" bindconfirm="wxSearchConfirm" /> -->
-
-      <!-- <view class="weui-icon-clear" wx:if="{{wxSearchData.value.length > 0}}" bindtap="wxSearchClear">
-        <icon type="clear" size="14"></icon>
-      </view> -->
-    </view>
-  </view> 
-
-  <view>
-     <view class="gwui-search-bar__cancel-btn" bindtap="wxSearchConfirm">
-         <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>新建</text>
-         <text wx:else data-key='back'>新建</text>
-     </view> 
-  </view>
-
-</view> 
-
-<view class="product-list">
-  <!--条件选择-->
-  <view class="choice-bar">
-    <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">{{activeDistrictName}}
-      <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
-    </view>
-
-    <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
-      <image class="icon-chioce" src="{{sortingChioceIcon}}"></image>
-    </view>
-
-    <view bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">筛选
-      <image class="icon-chioce" src="/image/menuicon/icon-chioce.png"></image>
-    </view>
-
-
-    <!-- <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
-      <view class="district-left">
-        <view wx:for="{{districtList}}" catchtap="selectDistrictParent" data-index="{{index}}" class="district-parent{{index==activeDistrictParentIndex||index==0&&activeDistrictParentIndex==-1?' district-parent-active':''}}" hover-class="click-once">{{item.district_name}}</view>
-      </view>
-      <view class="district-right">
-        <scroll-view scroll-y class="scroll-district" scroll-top="{{scrollTop}}" scroll-into-view="{{scrollIntoView}}">
-          <view id="{{index}}" wx:for="{{districtList[activeDistrictParentIndex==-1?0:activeDistrictParentIndex].district_children_list}}" catchtap="selectDistrictChildren" data-index="{{index}}" class="district-children" hover-class="click-once">{{item.district_name}}</view>
-        </scroll-view>
-      </view>
-    </view> -->
-
-    <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
-      <view wx:for="{{districtList}}" catchtap="selectCategory" data-index="{{index}}" class="category-item" hover-class="click-once">{{item.value}}</view>
-    </view>
-
-    <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
-      <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
-    </view>
-
-<!-- <view class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
-      <view wx:for="{{filterList}}" catchtap="selectFilter" data-index="{{index}}" class="filter-item" hover-class="click-once">{{item.value}}</view>
-    </view> -->
-     <view class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
-      <view wx:for="{{filterList}}" catchtap="selectFilter" data-index="{{index}}" class="filter-item" hover-class="click-once">{{item.value}}
-        <image hidden="{{!item.selected}}" class="icon-selected" src="/image/menuicon/icon-selected.png"></image>
-      </view>
-      <view class="filter-footer">
-        <button catchtap="resetFilter" plain="true" class="button-reset" type="default" size="mini" hover-class="click-once">重置</button>
-        <button catchtap="filterButtonClick" class="button-submit" type="primary" size="mini">确定</button>
+    <!-- 首页 search bar和新建button整体-->
+    <view class="gwui-search-bar">
+      <!-- 首页searchbar  -->
+      <view class="gwui-search-bar__form">
+        <view class="gwui-search-bar__box">
+          <icon class="gwui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="gwui-search-bar__input" placeholder="请输入查询内容" bindtap='gwsearchOpenNavigate' disabled='true' />
+        </view>
+      </view> 
+      <!-- 首页新建button    -->
+      <view>
+        <view class="gwui-search-bar__cancel-btn" bindtap="wxSearchAddNew">
+            <text wx:if="{{wxSearchData.value.length>0}}" data-key='search'>新建</text>
+            <text wx:else data-key='back'>新建</text>
+        </view> 
       </view>
     </view> 
 
-  </view>
+    <!-- 物品选择器  -->
+    <view class="choice-all product-list">
+      <!-- 物品选择器 -->
+      <view class="choice-bar">
+        <!-- 分类，默认全部，数据根据已添加物品的分类 -->
+        <view bindtap="choiceItem" data-item="1" class="chioce-item chioce-item-first" hover-class="click-once-opaque">{{activeDistrictName}}
+          <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
+        </view>
 
+        <!-- 排序，默认按照最近添加排序 -->
+        <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
+          <image class="icon-chioce" src="{{sortingChioceIcon}}"></image>
+        </view>
 
-   <view bindtap="hideAllChioce" class="mask" hidden="{{!chioceDistrict&&!chioceSorting&&!chioceFilter}}">
-  </view>
-  <!-- <import src="../template/template.wxml" /> -->
-  <!-- <template is="loading" data="{{isLoading,loadOver}}" />  -->
+        <!-- 暂未想好做什么，暂时废弃，todo：这个组件要做一个扩展，自动判断 -->
+        <view bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">筛选
+          <image class="icon-chioce" src="/image/menuicon/icon-chioce.png"></image>
+        </view>
 
+        <!-- 分类选择下拉菜单  -->
+        <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
+          <view wx:for="{{districtList}}" catchtap="selectCategory" data-index="{{index}}" class="category-item" hover-class="click-once">{{item.value}}</view>
+        </view>
 
-<view class='thingsall'>
-<!-- <scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltoupper="upper" bindscrolltolower="searchScrollLower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}"> -->
-<scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltolower="searchScrollLower" >
+        <!-- 排序选择下拉菜单  -->
+        <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
+          <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
+        </view>
 
-<!-- TODO：物品展示列表 scrollview  -->
-<!-- 参考天气，然后根据各种筛选setData  -->
-<!-- <view class='thingsall'> -->
-  <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
-    <!-- <image src='/image/plus.png' data-id="{{thing.id}}"></image> -->
-    <view class="thingsDescription" data-id="{{thing.id}}" bindtap='selectThing'>
-      <view class='thingsBasic thingCategory'>{{thing.category}}</view>
-      <view class='thingsBasic thingTitle'>{{thing.title}}</view>
-      <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>
+        <!-- 暂未想好做什么，暂时废弃，todo：这个组件要做一个扩展，自动判断 -->
+        <view class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
+          <view wx:for="{{filterList}}" catchtap="selectFilter" data-index="{{index}}" class="filter-item" hover-class="click-once">{{item.value}}
+            <image hidden="{{!item.selected}}" class="icon-selected" src="/image/menuicon/icon-selected.png"></image>
+          </view>
+          <view class="filter-footer">
+            <button catchtap="resetFilter" plain="true" class="button-reset" type="default" size="mini" hover-class="click-once">重置</button>
+            <button catchtap="filterButtonClick" class="button-submit" type="primary" size="mini">确定</button>
+          </view>
+        </view> 
+      </view> 
     </view>
-  </view>
 
-  <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
-  <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> 
-<!-- </view> -->
+    <!-- 物品选择器下拉菜单出来时，有个mask蒙层  -->
+    <view bindtap="hideAllChioce" class="mask" hidden="{{!chioceDistrict&&!chioceSorting&&!chioceFilter}}">
+    </view>
 
+    <!-- 物品列表  -->
+    <view class='thingsall'>
+      <!-- TODO：物品展示列表 scrollview  -->
+      <!-- 参考天气，然后根据各种筛选setData  -->
+      <!-- <view class='thingsall'> -->
+      <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
+        <view class="thingsDescription" data-id="{{thing.id}}" bindtap='selectThing'>
 
-</scroll-view>
+          <!-- <image class='thingimage' src="{{things.imagesrc}}"></image> 拍照 -->
+          <!-- <view class='thingsBasic thingTitle'>{{thing.title}}</view> //标题 -->
+          <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
+          <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view> //还剩多少天 -->
+          <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 类别 -->
+          <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
+          <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view> -->
+        </view>
+      </view>
 
-</view>
+      <!-- 下拉更多的展示 -->
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
+      <!-- 下拉加载全部后显示 -->
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> 
+    </view>
 
-</view>
-
-
-
-
-
-</view>
-
+  </scroll-view>
 </view>
 
 

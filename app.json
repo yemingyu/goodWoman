@@ -3,7 +3,8 @@
     "page/home",
     "page/account/account",
     "page/search/gwsearch",
-    "page/thingDetails/thingDetails"
+    "page/thingDetails/thingDetails",
+    "page/newThing/newThing"
   ],
   "window": {
     "navigationBarTextStyle": "black",
