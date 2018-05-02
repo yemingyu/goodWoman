@@ -1,7 +1,9 @@
 // Page/home.js
 
+// main search
 var WxSearch = require('component/wxSearchView/wxSearchView.js');
 
+// mock数据区
 const firstPage = [{
   id: "1",
   category: "水果1",
@@ -77,29 +79,18 @@ const firstPage = [{
     expiredDate: "七天后12"
   }]
 
-
-Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-    typeID: 0,
-    isLoading: true,
-    loadOver: false,
-    hiddenSearch: true,
-    districtList: [{ key: 1, value: "化妆品" }, {
-      key: 2, value: "食品"
-    }, {
-      key: 3, value: "价格最高"
-    }, {
-      key: 4, value: "服务最好"
-    }, {
-      key: 5, value: "环境最好"
-    }, {
-      key: 6, value: "预约最快"
-    }],
-    sortingList: [{ key: 1, value: "智能排序" }, {
+  const districtListMock = [{ key: 1, value: "化妆品" }, {
+    key: 2, value: "食品"
+  }, {
+    key: 3, value: "价格最高"
+  }, {
+    key: 4, value: "服务最好"
+  }, {
+    key: 5, value: "环境最好"
+  }, {
+    key: 6, value: "预约最快"
+  }]
+  const sortingListMock = [{ key: 1, value: "智能排序" }, {
       key: 2, value: "价格最低"
     }, {
       key: 3, value: "价格最高"
@@ -109,44 +100,76 @@ Page({
       key: 5, value: "环境最好"
     }, {
       key: 6, value: "预约最快"
-    }],
-    filterList: [{ key: 1, value: "周日营业", selected: false }, {
-      key: 2, value: "官方假期营业（香港）", selected: false
-    }, {
-      key: 3, value: "可为儿童接种疫苗", selected: false
-    }, {
-      key: 4, value: "网上付款", selected: false
-    }, {
-      key: 5, value: "到诊所现场付款", selected: false
-    }],
+    }]
+
+    const filterListMock = [{ key: 1, value: "周日营业", selected: false }, {
+        key: 2, value: "官方假期营业（香港）", selected: false
+      }, {
+        key: 3, value: "可为儿童接种疫苗", selected: false
+      }, {
+        key: 4, value: "网上付款", selected: false
+      }, {
+        key: 5, value: "到诊所现场付款", selected: false
+      }]
+
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    // scrollview滚动点
+    // scrollTop: 0,
+    scrollToView: "gwhome-search-bar-id",
+
+    // 隐藏main search，true表示展示的是home页，否则是search页
+    hiddenSearch: true,
+
+    // 物品选择器数据区 
+    districtList: districtListMock,
+    sortingList: sortingListMock,
+    filterList: filterListMock,
+
+    // 物品选择器icon
     districtChioceIcon: "/image/menuicon/icon-go-black.png",
     sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+
+    // 选择器 是否选中展开
     chioceDistrict: false,
     chioceSorting: false,
     chioceFilter: false,
-    activeDistrictParentIndex: -1,
-    activeDistrictChildrenIndex: -1,
+
+    // 选择器当前选中的类别
     activeDistrictName: "类别",
-    scrollTop: 0,
-    scrollIntoView: 0,
-    activeSortingIndex: -1,
     activeSortingName: "综合排序",
 
-    things:[],
+    // 类别对应id，便于逻辑处理
+    selectCategoryIndex: 0,
+    selectSortingIndex: 0,
 
+    // 物品列表数据
+    things: [],
+
+    // 上拉加载的 跟服务端所需参数有关
     searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
     searchLoadingComplete: false,  //“没有数据”的变量，默认false，隐藏 
     searchPageNum: 1,   // 设置加载的第几次，默认是第一次  
-    callbackcount: 6,      //返回数据的个数  
+    callbackcount: 10,      //返回数据的个数  
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function () {
-
-    // 2 搜索栏初始化
     var that = this;
+    // 物品数据初始化
+    // TODO:
+      // 获取物品列表，提取类别等，提供给choice使用
+      // 根据物品数据渲染列表
+    that.getThings();
+
+    // 搜索栏初始化，TODO: 网络请求获取历史搜索等，进行初始化
+    that.getSearchData();
+    
     WxSearch.init(
       that,  // 本页面一个引用
       ['杭州', '嘉兴', "海宁", "桐乡", '宁波', '金华'], // 热点搜索推荐，[]表示不使用
@@ -154,8 +177,6 @@ Page({
       that.mySearchFunction, // 提供一个搜索回调函数
       that.myGobackFunction //提供一个返回回调函数
     );
-
-    this.getThings();
 
   },
 
@@ -208,24 +229,140 @@ Page({
   
   },
 
-  gwsearchOpenNavigate: function (e) {
-    // console.log(e);
-    // wx.navigateTo({
-    //   url: 'search/gwsearch',
-    // })
-    var that = this;
-    that.setData({
-      hiddenSearch: false
-    })
+  /* 函数区 */
+
+  // scrollview 整体控制 
+  scroll: function (e) {
+    console.log(e)
   },
 
+  /* 初始化数据区 */
+  // 初始化物品数据、类别等
   getThings: function () {
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setData({
         things: firstPage
       })
     }, 1000)
   },
+  // 初始化main search页面数据 
+  getSearchData: function () {
+    console.log("getSearchData");
+  },
+
+  /* home页search区 */
+  // 首页隐藏，显示main search
+  gwsearchOpenNavigate: function (e) {
+    var that = this;
+    that.setData({
+      hiddenSearch: false
+    })
+  },
+  // 新建物品
+  gwAddNewThing: function (e) {
+    var that = this;
+    console.log(e);
+    wx.navigateTo({
+      url: 'newThing/newThing',
+    })
+  },
+  
+  /* 物品选择器区 */
+
+  // choicebar 点击事件
+  choiceItem: function (e) {
+    this.setData({
+      scrollToView: "choice-all-id"
+    });
+    // console.log("scrollTop:" + this.data.scrollTop);
+    switch (e.currentTarget.dataset.item) {
+      case "1":
+        if (this.data.chioceDistrict) {
+          this.setData({
+            districtChioceIcon: "/image/menuicon/icon-go-black.png",
+            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+            chioceDistrict: false,
+            chioceSorting: false,
+          });
+        }
+        else {
+          this.setData({
+            districtChioceIcon: "/image/menuicon/icon-down-black.png",
+            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+            chioceDistrict: true,
+            chioceSorting: false,
+          });
+        }
+        break;
+      case "2":
+        if (this.data.chioceSorting) {
+          this.setData({
+            districtChioceIcon: "/image/menuicon/icon-go-black.png",
+            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+            chioceDistrict: false,
+            chioceSorting: false,
+          });
+        }
+        else {
+          this.setData({
+            districtChioceIcon: "/image/menuicon/icon-go-black.png",
+            sortingChioceIcon: "/image/menuicon/icon-down-black.png",
+            chioceDistrict: false,
+            chioceSorting: true,
+          });
+        }
+        break;
+    }
+  },
+
+  // 选中分类
+  selectCategory: function (e) {
+    var index = e.currentTarget.dataset.index;
+    this.setData({
+      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+      chioceDistrict: false,
+      selectCategoryIndex: index,
+      activeDistrictName: this.data.districtList[index].value,
+    })
+
+    // 获取相应category对应的数据，加载过程中，中间loading
+    // productList: [],
+    //   pageIndex: 1,
+    //     loadOver: false,
+    //       isLoading: true
+    //this.getProductList();
+  },
+
+  // 选中排序
+  selectSorting: function (e) {
+    var index = e.currentTarget.dataset.index;
+    this.setData({
+      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+      chioceSorting: false,
+      selectSortingIndex: index,
+      activeSortingName: this.data.sortingList[index].value,
+
+    })
+    // productList: [],
+    //   pageIndex: 1,
+    //     loadOver: false,
+    //       isLoading: true
+    //this.getProductList();
+  },
+
+  // 点击蒙层，收起物品选择器
+  hideAllChioce: function () {
+    this.setData({
+      scrollToView: "gwhome-search-bar-id",
+
+      districtChioceIcon: "/image/menuicon/icon-go-black.png",
+      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+      chioceDistrict: false,
+      chioceSorting: false
+    });
+  },
+  
+
   selectThing: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.showToast({
@@ -250,13 +387,7 @@ Page({
   wxSearchDeleteAll: WxSearch.wxSearchDeleteAll, // 删除所有的历史记录
   // wxSearchConfirm: WxSearch.wxSearchConfirm,  // 搜索函数
 
-  wxSearchAddNew: function (e) {
-    var that = this;
-    console.log(e);
-    wx.navigateTo({
-      url: 'newThing/newThing',
-    })
-  },
+
 
   wxSearchClear: WxSearch.wxSearchClear,  // 清空函数
 
@@ -279,212 +410,7 @@ Page({
   },
 
 
-
-  onPullDownRefresh: function () {
-    this.setData({
-      productList: [],
-      pageIndex: 1,
-      loadOver: false,
-      isLoading: true
-    })
-    //this.getProductList();
-    wx.stopPullDownRefresh()
-  },
-  onReachBottom: function () {
-    if (!this.data.loadOver) {
-      this.setData({
-        pageIndex: this.data.pageIndex + 1,
-        isLoading: true,
-        loadOver: false
-      })
-      //this.getProductList();
-    }
-  },
-  //条件选择
-  choiceItem: function (e) {
-    switch (e.currentTarget.dataset.item) {
-      case "1":
-        if (this.data.chioceDistrict) {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-go-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-            chioceDistrict: false,
-            chioceSorting: false,
-            chioceFilter: false,
-          });
-        }
-        else {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-down-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-            chioceDistrict: true,
-            chioceSorting: false,
-            chioceFilter: false,
-          });
-        }
-        break;
-      case "2":
-        if (this.data.chioceSorting) {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-go-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-            chioceDistrict: false,
-            chioceSorting: false,
-            chioceFilter: false,
-          });
-        }
-        else {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-go-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-down-black.png",
-            chioceDistrict: false,
-            chioceSorting: true,
-            chioceFilter: false,
-          });
-        }
-        break;
-      case "3":
-        if (this.data.chioceFilter) {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-go-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-            chioceDistrict: false,
-            chioceSorting: false,
-            chioceFilter: false,
-          });
-        }
-        else {
-          this.setData({
-            districtChioceIcon: "/image/menuicon/icon-go-black.png",
-            sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-            chioceDistrict: false,
-            chioceSorting: false,
-            chioceFilter: true,
-          });
-        }
-        break;
-    }
-  },
-  hideAllChioce: function () {
-    this.setData({
-      districtChioceIcon: "/image/menuicon/icon-go-black.png",
-      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-      chioceDistrict: false,
-      chioceSorting: false,
-      chioceFilter: false,
-    });
-  },
-  //区域位置
-  /*getDistrictList: function () {
-    var that = this;
-    wx.request({
-      url: app.globalData.hostUrl,
-      data: {
-        message: "20005",
-        location_id: that.data.locationID,
-        token: md5.hex_md5(app.globalData.token),
-        device_source: app.globalData.deviceSource
-      },
-      success: function (resRequest) {
-        if (resRequest.data.error_code == 0) {
-          that.setData({
-            districtList: resRequest.data.district_list
-          })
-        }
-      }
-    })
-  },*/
-  // selectDistrictParent: function (e) {
-  //   this.setData({
-  //     activeDistrictParentIndex: e.currentTarget.dataset.index,
-  //     activeDistrictName: this.data.districtList[e.currentTarget.dataset.index].district_name,
-  //     activeDistrictChildrenIndex: 0,
-  //     scrollTop: 0,
-  //     scrollIntoView: 0
-  //   })
-  // },
-  // selectDistrictChildren: function (e) {
-  //   var index = e.currentTarget.dataset.index;
-  //   var parentIndex = this.data.activeDistrictParentIndex == -1 ? 0 : this.data.activeDistrictParentIndex;
-  //   if (index == 0) {
-  //     this.setData({
-  //       activeDistrictName: this.data.districtList[parentIndex].district_name
-  //     })
-  //   } else {
-  //     this.setData({
-  //       activeDistrictName: this.data.districtList[parentIndex].district_children_list[index].district_name
-  //     })
-  //   }
-  //   this.setData({
-  //     districtChioceIcon: "../images/icon-go-black.png",
-  //     chioceDistrict: false,
-  //     activeDistrictChildrenIndex: index,
-  //     productList: [],
-  //     pageIndex: 1,
-  //     loadOver: false,
-  //     isLoading: true
-  //   })
-  //   //this.getProductList();
-  // },
-
-  selectCategory: function (e) {
-    var index = e.currentTarget.dataset.index;
-    this.setData({
-      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-      chioceDistrict: false,
-      activeDistrictIndex: index,
-      activeDistrictName: this.data.districtList[index].value,
-      productList: [],
-      pageIndex: 1,
-      loadOver: false,
-      isLoading: true
-    })
-    //this.getProductList();
-  },
-
-  //综合排序
-  selectSorting: function (e) {
-    var index = e.currentTarget.dataset.index;
-    this.setData({
-      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
-      chioceSorting: false,
-      activeSortingIndex: index,
-      activeSortingName: this.data.sortingList[index].value,
-      productList: [],
-      pageIndex: 1,
-      loadOver: false,
-      isLoading: true
-    })
-    //this.getProductList();
-  },
-  //筛选
-  selectFilter: function (e) {
-    var index = e.currentTarget.dataset.index;
-    var _filterList = this.data.filterList;
-    _filterList[index].selected = !_filterList[index].selected;
-    this.setData({
-      filterList: _filterList
-    })
-  },
-  resetFilter: function () {
-    var _filterList = this.data.filterList;
-    _filterList.forEach(function (e) {
-      e.selected = false;
-    })
-    this.setData({
-      filterList: _filterList
-    })
-  },
-  filterButtonClick: function () {
-    this.setData({
-      chioceFilter: false,
-      productList: [],
-      pageIndex: 1,
-      loadOver: false,
-      isLoading: true
-    })
-    //this.getProductList();
-  },
+  
 
 
   searchScrollLower: function () {

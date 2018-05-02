@@ -1,15 +1,22 @@
 /* Page/home.wxss */
-    @import "component/wxSearchView/wxSearchView.wxss";    
+  
+  /* search页面引用的css，后续给改造掉  */
+@import "component/wxSearchView/wxSearchView.wxss";    
 
-/* input bar css */
+/* home css */
+/* .homeall {
 
-.gwui-search-bar {
-  position: relative;
-  padding: 3px 3px;
+} */
+
+/* searchbar整体  */
+.gwhome-search-bar {
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  box-sizing: border-box;
+
+  position: relative;
+  padding: 10rpx 10rpx;
+  /* box-sizing: border-box; */
   background-color: #efeff4; 
   width: 750rpx;
   z-index: 2;
@@ -19,56 +26,37 @@
   /* border-bottom: 1rpx solid #d7d6dc; */
 }
 
-/* .gwui-icon-search {
-  margin-right: 8px;
-  font-size: inherit;
-} */
-
-.gwui-search-bar__form {
+.gwhome-search-bar__form {
   position: relative;
   -webkit-box-flex: 1;
   -webkit-flex: auto;
   flex: auto;
-  border-radius: 5px;
+  border-radius: 10rpx;
   background: #fff;
   border: 1rpx solid #e6e6ea;
 }
 
- .gwui-search-bar__box {
+.gwuhome-search-bar__box {
   position: relative;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 60rpx;
+  padding-right: 60rpx;
   width: 100%;
   box-sizing: border-box;
   z-index: 1;
 } 
 
-.gwui-icon-search_in-box {
+/* icon */
+.gwhome-icon-search_in-box {
   position: absolute;
-  left: 10px;
-  top: 7px;
+  left: 20rpx;
+  top: 18rpx; 
 }
 
-.gwui-search-bar__text {
-  display: inline-block;
-  font-size: 14px;
-  vertical-align: middle;
-}
-
-
-
-.gwui-search-bar__input {
-  height: 28px;
-  line-height: 28px;
-  font-size: 14px;
-}
-
-.gwui-icon-clear {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 7px 8px;
-  font-size: 0;
+/* search bar */
+.gwhome-search-bar__input {
+  height: 68rpx;
+  line-height: 68rpx;
+  font-size: 34rpx;
 }
 
 .gwui-search-bar__label {
@@ -85,30 +73,33 @@
   line-height: 28px;
 }
 
-.gwui-search-bar__cancel-btn {
-  margin-left: 10px;
-  line-height: 28px;
-  color: #09bb07;
-  white-space: nowrap;
+/* 新建button  */
+.gwhome-search-bar__new-btn {
+  position: relative;
+  /* display: flex; */
+  width: 100rpx;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  line-height: 60rpx;
+  /* width: 50rpx; */
+   /* background: #00ff00;  */
+  color: #09bb07; 
+  /* white-space: nowrap; */
 }
-
-
-
-
 
 
 
 /* choice css  */
 
-.product-list {
+.choice-all {
   min-height: 100vh;
   background-color: #f0f0f0;
   padding-top: 0rpx;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
 }
 
 /*条件选择*/
-
 .choice-bar {
   position: relative; 
   top: 0rpx;
@@ -116,7 +107,7 @@
   width: 100vw;
   font-size: 16px;
   background-color: #fff;
-  z-index: 9;
+  z-index: 2;
 }
 
 .chioce-item {
@@ -125,7 +116,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 20rpx;
-  width: 33.33%;
+  width: 50.0%;
   height: 80rpx;
   border-top: 1rpx solid #ddd;
   border-bottom: 1rpx solid #ddd;
@@ -133,28 +124,22 @@
   /*border-right: 1rpx solid #ddd;*/
 }
 
-/* .chioce-item-last {
-  border-right: none;
-}
-
-.chioce-item-first {
-  border-left: none;
+/* .click-once {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  opacity: 0.7 !important;
 } */
 
+/* 点击choice hover  */
+.click-once-opaque {
+  background-color: #f2f2f2 !important;
+}
+
+/* choice icon  */
 .icon-chioce {
   height: 30rpx;
   width: 30rpx;
 }
-.mask{
-  position: fixed;
-  top:80rpx;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background-color: #000;
-  opacity: 0.5;
-  z-index: 1;
-}
+
 .district-list,.sorting-list,.filter-list {
   margin-top: 2rpx;
   position: absolute;
@@ -169,10 +154,10 @@
 
 .chioce-list-show {
   top: 80rpx;
-  animation: slide 0ms;
+  animation: chioce-list-slide 0ms;
 }
 
-@keyframes slide {
+@keyframes chioce-list-slide {
   0% {
     top: -500rpx;
   }
@@ -186,41 +171,10 @@
   display: none !important;
 }
 
-/*区域位置*/
-
-/* .district-list {
-  display: flex;
+.click-once {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  opacity: 0.7 !important;
 }
-
-.district-left {
-  flex-grow: 1;
-}
-
-.district-right {
-  flex-grow: 4;
-} */
-/* .scroll-district{
-  height: 500rpx;
-} */
-/* .district-parent {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 40rpx;
-  border-bottom: 1rpx solid #ddd;
-  border-right: 1rpx solid #ddd;
-  background-color: #f0f0f0;
-}
-
-.district-parent-active {
-  background-color: #fff;
-}
-
-.district-children {
-  height: 100rpx;
-  line-height: 100rpx;
-  padding: 0 40rpx;
-  border-bottom: 1rpx solid #ddd;
-} */
 
 /*综合排序*/
 
@@ -238,38 +192,19 @@
   border-bottom: 1rpx solid #ddd;
 }
 
-/*筛选*/
-
-.filter-item {
-  height: 80rpx;
-  line-height: 80rpx;
-  padding: 0 40rpx;
-  border-bottom: 1rpx solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.choiceMask{
+  position: fixed;
+  top:80rpx;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.5;
+  z-index: 1;
 }
 
-.icon-selected {
-  height: 30rpx;
-  width: 30rpx;
-}
 
-.filter-footer {
-  display: flex;
-  justify-content: space-between;
-}
-
-.filter-footer button {
-  margin: 20rpx 80rpx;
-  border-radius: 0 !important;
-}
-
-.button-reset {
-  border: 1rpx solid #ddd !important;
-  color: #666 !important;
-}
-
+/* 物品列表区  */
 
 .thingsall {
   position: relative;
