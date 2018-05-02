@@ -8,7 +8,7 @@
 
  <view class="homeall" hidden="{{!hiddenSearch}}"> 
   <!-- 整个home页在一个scroll-view中  -->
-  <scroll-view scroll-y="true" style="height: 1000rpx;" bindscrolltolower="xxxx" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}" bindscroll="scrollxxx">
+  <scroll-view scroll-y="{{scrollEnabled}}" style="height: 1100rpx;" bindscrolltolower="xxxx" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}" bindscroll="scrollxxx">
 
     <!-- 首页 search bar和新建button整体-->
     <view class="gwhome-search-bar" id="gwhome-search-bar-id">
@@ -27,8 +27,20 @@
       </view>
     </view> 
 
+  <view class="choice-all" id="choice-all-id">
+    <view class="choice-button-bar">
+      <view bindtap="choiceItem" data-item="1" class="chioce-button-item">{{activeDistrictName}}
+        <image class="icon-chioce" src="/image/menuicon/icon-go-black.png"></image>
+      </view>
+
+      <view bindtap="choiceItem" data-item="2" class="chioce-button-item">{{activeSortingName}}
+        <image class="icon-chioce" src="/image/menuicon/icon-go-black.png"></image>
+      </view>
+    </view> 
+  </view> 
+
     <!-- 物品选择器  -->
-    <view class="choice-all" id="choice-all-id">
+    <view class="choice-all" hidden='{{choiceallHidden}}'>
       <!-- 物品选择器 -->
       <view class="choice-bar">
         <!-- 分类，默认全部，数据根据已添加物品的分类 -->
@@ -46,7 +58,9 @@
           <image class="icon-chioce" src="/image/menuicon/icon-chioce.png"></image>
         </view> -->
 
-        <!-- 分类选择下拉菜单  -->
+
+ <!-- 分类选择下拉菜单  -->
+    <view class='choicetest'>
         <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
           <view wx:for="{{districtList}}" catchtap="selectCategory" data-index="{{index}}" class="category-item" hover-class="click-once">{{item.value}}</view>
         </view>
@@ -55,6 +69,8 @@
         <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
           <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
         </view>
+        </view>
+       
 
         <!-- 暂未想好做什么，暂时废弃，todo：这个组件要做一个扩展，自动判断 -->
         <!-- <view class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
@@ -69,6 +85,9 @@
       </view> 
     </view>
 
+    
+
+
     <!-- 物品选择器下拉菜单出来时，有个mask蒙层  -->
     <view bindtap="hideAllChioce" class="choiceMask" hidden="{{!chioceDistrict&&!chioceSorting}}">
     </view>
@@ -78,16 +97,21 @@
       <!-- TODO：物品展示列表 scrollview  -->
       <!-- 参考天气，然后根据各种筛选setData  -->
       <!-- <view class='thingsall'> -->
-      <view class="thingslist" wx:for="{{things}}" wx:for-item="thing" wx:key="id" >
-        <view class="thingsDescription" data-id="{{thing.id}}" bindtap='selectThing'>
-
-          <!-- <image class='thingimage' src="{{things.imagesrc}}"></image> 拍照 -->
-          <!-- <view class='thingsBasic thingTitle'>{{thing.title}}</view> //标题 -->
-          <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
-          <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view> //还剩多少天 -->
-          <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 类别 -->
+      <view class="thingslist" wx:for="{{thingslist}}" wx:for-item="thing" wx:key="id" >
+        <view class="thingsIntro" data-id="{{thing.id}}" bindtap='selectThing'>
+        <!-- 类别tag  -->
+        <view class='thingCategory'>{{thing.category}}</view> 类别 
+        <!-- 物品缩略图  -->
+        <image class='thingimage' src="{{things.imagesrc}}"></image>
+        <!-- 标题  -->
+        <view class='thingTitle'>{{thing.title}}</view>
+        <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
+        <view class='thingUseProgressImg'></view> 
+        <view class='thingUseProgress'>{{thing.useProgress}}</view> 
+        <!-- 还剩多少天  -->
+        <view class='thingExpiredDate'>{{thing.expiredDate}}</view> 
           <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
-          <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view> -->
+           <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>  -->
         </view>
       </view>
 

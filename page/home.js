@@ -8,36 +8,48 @@ const firstPage = [{
   id: "1",
   category: "水果1",
   title: "苹果1",
+  thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+  useProgress: 0.83,
   expiredDate: "七天后1"
 },
   {
     id: "2",
     category: "水果2",
     title: "苹果2",
+    thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+    useProgress: 0.83,
     expiredDate: "七天后2"
   },
   {
     id: "3",
     category: "水果3",
     title: "苹果3",
+    thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+    useProgress: 0.83,
     expiredDate: "七天后3"
   },
   {
     id: "4",
     category: "水果4",
     title: "苹果4",
+    thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+    useProgress: 0.83,
     expiredDate: "七天后4"
   },
   {
     id: "5",
     category: "水果5",
     title: "苹果5",
+    thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+    useProgress: 0.83,
     expiredDate: "七天后5"
   },
   {
     id: "6",
     category: "水果6",
     title: "苹果6",
+    thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
+    useProgress: 0.83,
     expiredDate: "七天后6"
   }]
 
@@ -120,6 +132,10 @@ Page({
     // scrollview滚动点
     // scrollTop: 0,
     scrollToView: "gwhome-search-bar-id",
+    scrollEnabled: "true",
+
+
+    choiceallHidden: true,
 
     // 隐藏main search，true表示展示的是home页，否则是search页
     hiddenSearch: true,
@@ -147,7 +163,7 @@ Page({
     selectSortingIndex: 0,
 
     // 物品列表数据
-    things: [],
+    thingslist: [],
 
     // 上拉加载的 跟服务端所需参数有关
     searchLoading: false, //"上拉加载"的变量，默认false，隐藏  
@@ -241,7 +257,7 @@ Page({
   getThings: function () {
     setTimeout(() => {
       this.setData({
-        things: firstPage
+        thingslist: firstPage
       })
     }, 1000)
   },
@@ -272,7 +288,8 @@ Page({
   // choicebar 点击事件
   choiceItem: function (e) {
     this.setData({
-      scrollToView: "choice-all-id"
+      scrollToView: "choice-all-id",
+      choiceallHidden: false
     });
     // console.log("scrollTop:" + this.data.scrollTop);
     switch (e.currentTarget.dataset.item) {
@@ -319,7 +336,7 @@ Page({
   selectCategory: function (e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
-      sortingChioceIcon: "/image/menuicon/icon-go-black.png",
+      districtChioceIcon: "/image/menuicon/icon-go-black.png",
       chioceDistrict: false,
       selectCategoryIndex: index,
       activeDistrictName: this.data.districtList[index].value,
@@ -354,6 +371,7 @@ Page({
   hideAllChioce: function () {
     this.setData({
       scrollToView: "gwhome-search-bar-id",
+      choiceallHidden: true,
 
       districtChioceIcon: "/image/menuicon/icon-go-black.png",
       sortingChioceIcon: "/image/menuicon/icon-go-black.png",
