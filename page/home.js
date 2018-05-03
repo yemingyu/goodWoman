@@ -287,10 +287,18 @@ Page({
 
   // choicebar 点击事件
   choiceItem: function (e) {
-    this.setData({
-      scrollToView: "choice-all-id",
-      choiceallHidden: false
-    });
+    if (this.data.choiceallHidden) {
+      this.setData({
+        scrollToView: "choice-all-id",
+        choiceallHidden: false
+      });
+    } else {
+      this.setData({
+        scrollToView: "gwhome-search-bar-id",
+        choiceallHidden: true
+      });
+    }
+    
     // console.log("scrollTop:" + this.data.scrollTop);
     switch (e.currentTarget.dataset.item) {
       case "1":
@@ -336,6 +344,9 @@ Page({
   selectCategory: function (e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
+      scrollToView: "gwhome-search-bar-id",
+      choiceallHidden: true,
+
       districtChioceIcon: "/image/menuicon/icon-go-black.png",
       chioceDistrict: false,
       selectCategoryIndex: index,
@@ -354,6 +365,9 @@ Page({
   selectSorting: function (e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
+      scrollToView: "gwhome-search-bar-id",
+      choiceallHidden: true,
+
       sortingChioceIcon: "/image/menuicon/icon-go-black.png",
       chioceSorting: false,
       selectSortingIndex: index,
