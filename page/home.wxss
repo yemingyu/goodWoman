@@ -239,7 +239,7 @@
 
 .thingsall {
   position: absolute;
-  top: 180rpx; 
+  top: 80rpx; 
   width: 750rpx;
   /* display: flex; */
   background: #0000ff;

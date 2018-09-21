@@ -27,63 +27,6 @@
       </view>
     </view> 
 
-  <view class="choice-all" id="choice-all-id">
-    <view class="choice-button-bar">
-      <view bindtap="choiceItem" data-item="1" class="chioce-button-item">{{activeDistrictName}}
-        <image class="icon-chioce" src="/image/menuicon/icon-go-black.png"></image>
-      </view>
-
-      <view bindtap="choiceItem" data-item="2" class="chioce-button-item">{{activeSortingName}}
-        <image class="icon-chioce" src="/image/menuicon/icon-go-black.png"></image>
-      </view>
-    </view> 
-  </view> 
-
-    <!-- 物品选择器  -->
-    <view class="choice-all" hidden='{{choiceallHidden}}'>
-      <!-- 物品选择器 -->
-      <view class="choice-bar">
-        <!-- 分类，默认全部，数据根据已添加物品的分类 -->
-        <view bindtap="choiceItem" data-item="1" class="chioce-item" hover-class="click-once-opaque">{{activeDistrictName}}
-          <image class="icon-chioce" src="{{districtChioceIcon}}"></image>
-        </view>
-
-        <!-- 排序，默认按照最近添加排序 -->
-        <view bindtap="choiceItem" data-item="2" class="chioce-item" hover-class="click-once-opaque">{{activeSortingName}}
-          <image class="icon-chioce" src="{{sortingChioceIcon}}"></image>
-        </view>
-
-        <!-- 暂未想好做什么，暂时废弃，todo：这个组件要做一个扩展，自动判断 -->
-        <!-- <view bindtap="choiceItem" data-item="3" class="chioce-item chioce-item-last" hover-class="click-once-opaque">筛选
-          <image class="icon-chioce" src="/image/menuicon/icon-chioce.png"></image>
-        </view> -->
-
-
- <!-- 分类选择下拉菜单  -->
-    <view class='choicetest'>
-        <view class="district-list{{!chioceDistrict?' chioce-list-hide':' chioce-list-show'}}">
-          <view wx:for="{{districtList}}" catchtap="selectCategory" data-index="{{index}}" class="category-item" hover-class="click-once">{{item.value}}</view>
-        </view>
-
-        <!-- 排序选择下拉菜单  -->
-        <view class="sorting-list{{!chioceSorting?' chioce-list-hide':' chioce-list-show'}}">
-          <view wx:for="{{sortingList}}" catchtap="selectSorting" data-index="{{index}}" class="sorting-item" hover-class="click-once">{{item.value}}</view>
-        </view>
-        </view>
-       
-
-        <!-- 暂未想好做什么，暂时废弃，todo：这个组件要做一个扩展，自动判断 -->
-        <!-- <view class="filter-list{{!chioceFilter?' chioce-list-hide':' chioce-list-show'}}">
-          <view wx:for="{{filterList}}" catchtap="selectFilter" data-index="{{index}}" class="filter-item" hover-class="click-once">{{item.value}}
-            <image hidden="{{!item.selected}}" class="icon-selected" src="/image/menuicon/icon-selected.png"></image>
-          </view>
-          <view class="filter-footer">
-            <button catchtap="resetFilter" plain="true" class="button-reset" type="default" size="mini" hover-class="click-once">重置</button>
-            <button catchtap="filterButtonClick" class="button-submit" type="primary" size="mini">确定</button>
-          </view>
-        </view>  -->
-      </view> 
-    </view>
 
     
 
