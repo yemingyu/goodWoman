@@ -21,6 +21,13 @@
   animation: rotate 0.75s linear infinite;
 }
 
+/* widget */
+.btn-area{
+  margin-top: 60rpx;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+}
 
 @keyframes rotate {
   0% {

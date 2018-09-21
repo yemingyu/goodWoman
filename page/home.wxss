@@ -245,7 +245,51 @@
   background: #0000ff;
 }
 
-.thingsDescription {
+.thingsIntro {
+  position: relative;
+}
+
+.thingimage {
+  /* position: absolute; */
+  margin:20rpx 20rpx 20rpx 20rpx;
+  height: 300rpx; 
+  width: 400rpx;
+}
+
+.thingCategory {
+  position: absolute;
+  background: #ff0000;
+  top: 10rpx;
+  height: 60rpx; 
+  width: 160rpx;  
+}
+
+.thingTitle {
+  position: absolute;
+  background: #00ff00;
+  top: 40rpx;
+  right: 20rpx;
+  height: 60rpx; 
+  width: 300rpx;   
+}
+
+.thingUseProgress {
+  position: absolute;
+  top: 140rpx;
+  right: 20rpx;
+  height: 30rpx; 
+  width: 300rpx;   
+}
+
+.thingExpiredDate{
+  position: absolute;
+  top: 180rpx;
+  right: 20rpx;
+  height: 80rpx; 
+  width: 300rpx; 
+}
+
+.thingsDescription111 {
   /* position: relative;
   display: flex;
   height: 200rpx;
@@ -271,17 +315,11 @@
   border-left: 1rpx solid #ddd;
 }
 
-.thingCategory{
-  background: #ff0000;  
-}
 
-.thingTitle{
-  background: #00ff00;  
-}
 
-.thingExpiredDate{
-  background: #0000ff;  
-}
+
+
+
 
 
 

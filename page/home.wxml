@@ -8,7 +8,7 @@
 
  <view class="homeall" hidden="{{!hiddenSearch}}"> 
   <!-- 整个home页在一个scroll-view中  -->
-  <scroll-view scroll-y="{{scrollEnabled}}" style="height: 1100rpx;" bindscrolltolower="xxxx" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}" bindscroll="scrollxxx">
+  <scroll-view scroll-y="{{scrollEnabled}}" style="height: 1100rpx;" bindscrolltolower="scrollToLower" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}">
 
     <!-- 首页 search bar和新建button整体-->
     <view class="gwhome-search-bar" id="gwhome-search-bar-id">
@@ -99,19 +99,21 @@
       <!-- <view class='thingsall'> -->
       <view class="thingslist" wx:for="{{thingslist}}" wx:for-item="thing" wx:key="id" >
         <view class="thingsIntro" data-id="{{thing.id}}" bindtap='selectThing'>
-        <!-- 类别tag  -->
-        <view class='thingCategory'>{{thing.category}}</view> 类别 
-        <!-- 物品缩略图  -->
-        <image class='thingimage' src="{{things.imagesrc}}"></image>
-        <!-- 标题  -->
-        <view class='thingTitle'>{{thing.title}}</view>
-        <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
-        <view class='thingUseProgressImg'></view> 
-        <view class='thingUseProgress'>{{thing.useProgress}}</view> 
-        <!-- 还剩多少天  -->
-        <view class='thingExpiredDate'>{{thing.expiredDate}}</view> 
-          <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
-           <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>  -->
+          <!-- 物品缩略图  -->
+          <image class='thingimage' src="{{thing.thingimage}}">Test</image>
+          <!-- 类别tag  -->
+          <view class='thingCategory'>{{thing.category}}</view>
+          <!-- 标题  -->
+          <view class='thingTitle'>{{thing.title}}</view>
+          <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
+          <view class='thingUseProgressImg'></view> 
+          <view class='thingUseProgress'>
+            <progress percent="{{thing.useProgress}}" color="{{thing.progressColor}}" stroke-width="12" />
+          </view> 
+          <!-- 还剩多少天  -->
+          <view class='thingExpiredDate'>{{thing.expiredDate}}</view> 
+            <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
+            <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>  -->
         </view>
       </view>
 

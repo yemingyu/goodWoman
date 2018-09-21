@@ -1,2 +1,149 @@
 <!--page/newThing/newThing.wxml-->
-<text>page/newThing/newThing.wxml</text>
+<view class="container">
+  <!-- <template is="head" data="{{title: 'choose/previewImage'}}"/> -->
+
+  <view class="page-body">
+    <form>
+      <view class="page-section">
+
+        <view class="weui-cells weui-cells_after-title">
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">物品名称</view>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="weui-cells weui-cells_after-title">
+                  <input class="weui-input" focus placeholder=""/>
+              </view>
+                <!-- <picker range="{{sourceType}}" bindchange="sourceTypeChange" value="{{sourceTypeIndex}}" mode="selector">
+                  <view class="weui-input">{{sourceType[sourceTypeIndex]}}</view>
+                </picker> -->
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">物品类型</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker range="{{thingsCategoryType}}" bindchange="thingsCategoryTypeChange" value="{{thingsCategoryIndex}}" mode="selector">
+                <view class="weui-input">{{thingsCategoryType[thingsCategoryIndex]}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">有效期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{ValidityDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindValidityDateChange">
+                <view class="weui-input">{{ValidityDate}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">开封日期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{OpenDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindOpenDateChange">
+                <view class="weui-input">{{OpenDate}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">提醒日期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{AlarmDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindAlarmDateChange">
+                <view class="weui-input">{{AlarmDate}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">购买地址</view>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="weui-cells weui-cells_after-title">
+                  <input class="weui-input" focus placeholder=""/>
+              </view>
+            </view>
+          </view>
+
+
+          <!-- <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">图片来源</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker range="{{sourceType}}" bindchange="sourceTypeChange" value="{{sourceTypeIndex}}" mode="selector">
+                <view class="weui-input">{{sourceType[sourceTypeIndex]}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">图片质量</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker range="{{sizeType}}" bindchange="sizeTypeChange" value="{{sizeTypeIndex}}" mode="selector">
+                <view class="weui-input">{{sizeType[sizeTypeIndex]}}</view>
+              </picker>
+            </view>
+          </view>
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">数量限制</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker range="{{count}}" bindchange="countChange" value="{{countIndex}}" mode="selector">
+                <view class="weui-input">{{count[countIndex]}}</view>
+              </picker>
+            </view>
+          </view> -->
+        </view>
+
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">点击可预览选好的图片</view>
+                  <!-- <view class="weui-uploader__info">{{imageList.length}}/{{count[countIndex]}}</view> -->
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files">
+                    <block wx:for="{{imageList}}" wx:for-item="thingImage">
+                      <view class="weui-uploader__file">
+                        <image class="weui-uploader__img" src="{{thingImage}}" data-src="{{thingImage}}" bindtap="previewThingImage"></image>
+                      </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseThingImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="btn-area">
+          <button type="primary" bindtap="getLocation">完成</button>
+          <!-- <button bindtap="clear">清空</button> -->
+        </view>
+
+      </view>
+    </form>
+  </view>
+
+  <template is="foot" />
+</view>

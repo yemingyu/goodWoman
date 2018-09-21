@@ -1,1 +1,2 @@
 /* page/newThing/newThing.wxss */
+@import "../../common/css/weui.wxss";
