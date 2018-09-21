@@ -14,7 +14,7 @@
             </view>
             <view class="weui-cell__bd">
               <view class="weui-cells weui-cells_after-title">
-                  <input class="weui-input" focus placeholder=""/>
+                  <input class="weui-input" bindinput="bindThingNameInput" bindblur="bindThingNameBlurInput" focus placeholder=""/>
               </view>
                 <!-- <picker range="{{sourceType}}" bindchange="sourceTypeChange" value="{{sourceTypeIndex}}" mode="selector">
                   <view class="weui-input">{{sourceType[sourceTypeIndex]}}</view>
@@ -66,7 +66,7 @@
             </view>
           </view>
 
-          <view class="weui-cell weui-cell_input">
+          <!-- <view class="weui-cell weui-cell_input">
             <view class="weui-cell__hd">
               <view class="weui-label">购买地址</view>
             </view>
@@ -75,7 +75,7 @@
                   <input class="weui-input" focus placeholder=""/>
               </view>
             </view>
-          </view>
+          </view> -->
 
 
           <!-- <view class="weui-cell weui-cell_input">
@@ -137,7 +137,7 @@
         </view>
 
         <view class="btn-area">
-          <button type="primary" bindtap="getLocation">完成</button>
+          <button type="primary" bindtap="completeNewThing" disabled="{{completeBtndisabled}}" >完成</button>
           <!-- <button bindtap="clear">清空</button> -->
         </view>
 

@@ -13,7 +13,8 @@ Page({
     // countIndex: 8,
     // count: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 
-
+    inputThingValue: "",
+    completeBtndisabled: true,
 
     thingsCategoryType: ['水果', '化妆品', '饮料'],
     thingsCategoryIndex: 0,
@@ -52,6 +53,7 @@ Page({
         that.setData({
           imageList: res.tempFilePaths
         })
+        that.refreshCompleteButton()
       }
     })
   },
@@ -88,5 +90,29 @@ Page({
     this.setData({
       AlarmDate: e.detail.value
     })
+  },
+  bindThingNameInput: function (e) {
+    this.setData({
+      inputThingValue: e.detail.value
+    })
+  },
+  bindThingNameBlurInput: function (e) {
+    var that = this
+    that.refreshCompleteButton()
+  },
+  completeNewThing: function () {
+    // 保存数据，然后返回首页刷新
+  },
+  refreshCompleteButton: function () {
+    var that = this
+    if (that.data.inputThingValue == null || that.data.imageList.length == 0) {
+      that.setData({
+        completeBtndisabled: true
+      })
+    } else {
+      that.setData({
+        completeBtndisabled: false
+      })
+    }
   }
 })
