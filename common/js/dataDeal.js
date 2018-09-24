@@ -86,24 +86,69 @@ const filterListMock = [{ key: 1, value: "周日营业", selected: false }, {
 
 
 var AllDataValue = [];
+var AllDealedDataValue = [];
 var AllDataKey = "AllThingsKey";
 var AllDataPageSize = 5;
 var AllCurrentData = [];
 
+var AllCategory = ['水果', '化妆品', '饮料'];
+
+function transformThingData(data) {
+  var resultData = {}
+  resultData["id"] = data["id"]
+  resultData["category"] = data["category"]
+  resultData["title"] = data["title"]
+  resultData["thingimage"] = "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg"
+  // 时间处理
+  resultData["ValidityDate"] = data["ValidityDate"]
+  resultData["OpenDate"] = data["OpenDate"]
+
+    var ValidityDate_timestamp = Date.parse(new Date(resultData["ValidityDate"]));
+    var OpenDate_timestamp = Date.parse(new Date(resultData["OpenDate"]));
+    var ValidityDate = new Date();
+    ValidityDate.setTime(ValidityDate_timestamp);
+
+    var OpenDate = new Date();
+    OpenDate.setTime(OpenDate_timestamp);
+
+    var currentDate = new Date();
+
+  var allDays = Math.floor((ValidityDate.getTime() - OpenDate.getTime()) / (24 * 3600 * 1000)) 
+  var remainedDays = ValidityDate.getTime() - currentDate.getTime()
+  var remainedDaysPercent = Math.floor((ValidityDate.getTime() - currentDate.getTime()) / allDays * 100)
+
+  resultData["useProgress"] = remainedDaysPercent
+  if (remainedDaysPercent > 30) {
+    resultData["progressColor"] = "green"
+  } else if (remainedDaysPercent > 10) {
+    resultData["progressColor"] = "yellow"
+  } else {
+    resultData["progressColor"] = "red"
+  }
+  if (remainedDays <= 0) {
+    resultData["expiredDate"] = "已过期"
+  } else {
+    resultData["expiredDate"] = "还有" + remainedDays + "天过期"
+  }
+  return resultData
+}
+
 function getAllDataStorage() {
-  var storageData
-  storageData = wx.getStorageSync(AllDataKey)
+  AllDataValue = wx.getStorageSync(AllDataKey)
+  var AllDealedDataValue = []
   // 对数据进行处理
-  return firstPage
-  // return storageData
+  for (var i = 0; i < AllDataValue.length; i++) {
+    AllDealedDataValue[i] = transformThingData(AllDataValue[i])
+  }
+  return AllDealedDataValue
 }
 
 function getDataWithPage(page) {
   var data = []
   for (var i = 0; i < AllDataPageSize; i++) {
-    var item = firstPage[AllDataPageSize*page + i]
+    var item = AllDataValue[AllDataPageSize*page + i]
     if (item != null && item != undefined) {
-      data[i] = item
+      data[i] = transformThingData(item)
     }
   }
   return data
@@ -111,49 +156,46 @@ function getDataWithPage(page) {
 
 function getAllDataStorageWithPage(page, completion) {
     setTimeout(() => {
+      // TODO: 模拟从服务端获取数据
+      getAllDataStorage()
       completion(getDataWithPage(page))
-    }, 3000)
+    }, 1000)
 }
 
-// function getAllDataStorageWithPage(page) {
-//   // var storageData = wx.getStorageSync(AllDataKey)
-//   // 对数据进行处理 向服务端请求某页数据
-//   // AllCurrentData = AllCurrentData.concat(getDataWithPage(page))
-//   // return AllCurrentData
-
-//   return getDataWithPage(page)
-
-//   // return storageData
-// }
-
-// function setAllDataStorage() {
-  // var key = this.data.key
-  // var data = this.data.data
-  // if (key.length === 0) {
-  //   this.setData({
-  //     key: key,
-  //     data: data,
-  //     'dialog.hidden': false,
-  //     'dialog.title': '保存数据失败',
-  //     'dialog.content': 'key 不能为空'
-  //   })
-  // } else {
-  //   wx.setStorageSync(key, data)
-  //   this.setData({
-  //     key: key,
-  //     data: data,
-  //     'dialog.hidden': false,
-  //     'dialog.title': '存储数据成功'
-  //   })
-  // }
-// }
+function getAllDataStorageWithReadyPage(page, completion) {
+  setTimeout(() => {
+    // TODO: 模拟从服务端获取数据
+    getAllDataStorage()
+    var data = []
+    for (var i = 0; i <= page; i++) {
+      data = data.concat(getDataWithPage(i))
+    }
+    completion(data)
+  }, 1000)
+}
 
 function getAllDataStorageWithxxx() {
 
 }
 
-function addAllDataStorageWithxxx() {
+function addAllDataStorageWithData(data, completion) {
+  setTimeout(() => {
+    var resultData = {}
+    resultData["id"] = (AllDataValue.length + 1).toString
+    resultData["category"] = data["category"]
+    resultData["title"] = data["title"]
+    // 图片需要上传后获取链接才能使用
+    resultData["thingimage"] = data["imgSource"]
+    // resultData["thingimage"] = "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg"
+    // 时间处理
+    resultData["ValidityDate"] = data["ValidityDate"]
+    resultData["OpenDate"] = data["OpenDate"]
+    resultData["AlarmDate"] = data["AlarmDate"]
 
+    AllDataValue[AllDataValue.length] = resultData
+    wx.setStorageSync(AllDataKey, AllDataValue)
+    completion(true)
+  }, 3000)
 }
 
 function deleteAllDataStorageWithxxx() {
@@ -164,9 +206,20 @@ function updateAllDataStorageWithxxx() {
 
 }
 
+function getCurrentId() {
+  return wx.getStorageSync("AllDataCurrentIdKey")
+}
+
+function setCurrentId(currentId) {
+  wx.setStorageSync("AllDataCurrentIdKey", currentId)
+}
+
 // 导出接口
 module.exports = {
   getAllDataStorage: getAllDataStorage,
   getAllDataStorageWithPage: getAllDataStorageWithPage,
-  AllDataPageSize: AllDataPageSize
+  getAllDataStorageWithReadyPage: getAllDataStorageWithReadyPage,
+  AllDataPageSize: AllDataPageSize,
+  addAllDataStorageWithData: addAllDataStorageWithData,
+  AllCategory: AllCategory
 }

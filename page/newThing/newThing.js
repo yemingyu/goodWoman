@@ -1,22 +1,16 @@
 // var sourceType = [['camera'], ['album'], ['camera', 'album']]
 // var sizeType = [['compressed'], ['original'], ['compressed', 'original']]
 
+// data js
+var DataDeal = require('../../common/js/dataDeal.js');
+
 Page({
   data: {
     imageList: [],
-    // sourceTypeIndex: 2,
-    // sourceType: ['拍照', '相册', '拍照或相册'],
-
-    // sizeTypeIndex: 2,
-    // sizeType: ['压缩', '原图', '压缩或原图'],
-
-    // countIndex: 8,
-    // count: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-
     inputThingValue: "",
     completeBtndisabled: true,
 
-    thingsCategoryType: ['水果', '化妆品', '饮料'],
+    thingsCategoryType: DataDeal.AllCategory,
     thingsCategoryIndex: 0,
 
     ValidityDate: '2016-09-01',
@@ -101,7 +95,53 @@ Page({
     that.refreshCompleteButton()
   },
   completeNewThing: function () {
+    var that = this
+    var data = {}
+    // 拼装数据
+    data["title"] = that.data.inputThingValue
+    data["category"] = that.data.thingsCategoryType[that.data.thingsCategoryIndex]
+    data["ValidityDate"] = that.data.ValidityDate
+    data["OpenDate"] = that.data.OpenDate
+    data["AlarmDate"] = that.data.AlarmDate
+    data["imgSource"] = that.data.imageList[0]
+
+    wx.showLoading({
+      title: "正在保存",
+      icon: "loading"
+    })
     // 保存数据，然后返回首页刷新
+    DataDeal.addAllDataStorageWithData(data, function (result){
+      wx.hideLoading()
+      if (result) {
+        wx.showToast({
+          title: "保存成功",
+          icon: "success",
+          duration: 1000,
+          success: function () {
+            setTimeout(function() {
+              that.callHomeRefresh()
+              wx.navigateBack()
+            }, 1000)
+          }
+        })
+      } else {
+        wx.showToast({
+          title: "保存失败",
+          icon: "failed",
+          duration: 1000
+        })
+      }
+    })
+  },
+  callHomeRefresh: function () {
+    //获取页面栈
+    var pages = getCurrentPages();
+    if (pages.length > 1) {
+      //上一个页面实例对象
+      var prePage = pages[pages.length - 2];
+      //关键在这里
+      prePage.refreshThings.apply(prePage)
+    }
   },
   refreshCompleteButton: function () {
     var that = this

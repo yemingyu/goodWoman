@@ -94,7 +94,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    // var that = this;
+    // that.getThings();
   },
 
   /**
@@ -115,7 +116,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    var that = this
+    wx.showLoading({
+      title: "正在刷新",
+      icon: "loading"
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+      that.refreshThings()
+    }, 1000)
   },
 
   /**
@@ -191,12 +200,43 @@ Page({
   getThings: function () {
     var that = this
     DataDeal.getAllDataStorageWithPage(0, function (data){
-      that.setData({
-        thingslist: data
-      })
+      if (that.data.thingslist.length == 0) {
+        that.setData({
+          thingslist: data,
+        })
+      } else {
+        for (var i = 0; i < data.length; i++) {
+          that.data.thingslist[i] = data[i]
+        }
+        that.setData({
+          thingslist: that.data.thingslist,
+        })
+      }
     })
-    
-    
+  },
+  refreshThings: function () {
+    var that = this
+    // 刷新当前，需要把总共已经加载的page上传到服务端
+    DataDeal.getAllDataStorageWithReadyPage(that.data.searchPageNum, function (data) {
+      if (that.data.thingslist.length == 0) {
+        that.setData({
+          thingslist: data,
+        })
+      } else {
+        for (var i = 0; i < data.length; i++) {
+          that.data.thingslist[i] = data[i]
+        }
+        that.setData({
+          thingslist: that.data.thingslist,
+        })
+        if (that.data.thingslist.length > (that.data.searchPageNum) * DataDeal.AllDataPageSize) {
+          that.setData({
+            searchLoadingComplete: true,
+            searchLoading: false
+          })
+        }
+      }
+    })
   },
   // 初始化main search页面数据 
   getSearchData: function () {
