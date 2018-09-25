@@ -108,19 +108,20 @@ Page({
     var that = this
     var data = {}
     // 拼装数据
+    data["id"] = detailTartgetIdStr
     data["title"] = that.data.inputThingValue
     data["category"] = that.data.thingsCategoryType[that.data.thingsCategoryIndex]
     data["ValidityDate"] = that.data.ValidityDate
     data["OpenDate"] = that.data.OpenDate
     data["AlarmDate"] = that.data.AlarmDate
-    data["imgSource"] = that.data.imageList[0]
+    data["thingimage"] = that.data.imageList[0]
 
     wx.showLoading({
       title: "正在保存",
       icon: "loading"
     })
     // 保存数据，然后返回首页刷新
-    DataDeal.addAllDataStorageWithData(data, function (result) {
+    DataDeal.updateAllDataStorageWithId(detailTartgetIdStr, data, function (result) {
       wx.hideLoading()
       if (result) {
         wx.showToast({

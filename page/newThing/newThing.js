@@ -103,7 +103,7 @@ Page({
     data["ValidityDate"] = that.data.ValidityDate
     data["OpenDate"] = that.data.OpenDate
     data["AlarmDate"] = that.data.AlarmDate
-    data["imgSource"] = that.data.imageList[0]
+    data["thingimage"] = that.data.imageList[0]
 
     wx.showLoading({
       title: "正在保存",

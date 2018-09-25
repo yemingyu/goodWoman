@@ -219,7 +219,10 @@ Page({
   getDataWithPage: function (data, page) {
     var resultData = []
     for (var i = 0; i < (page + 1) * DataDeal.AllDataPageSize; i++) {
-      resultData[i] = data[i]
+      var item = data[i]
+      if (item != null && item != undefined) {
+        resultData[i] = item
+      }
     }
     return resultData
   },
@@ -243,15 +246,19 @@ Page({
           thingslist: resultData,
         })
         if (data.length > (that.data.searchPageNum + 1) * DataDeal.AllDataPageSize) {
-          that.setData({
-            searchLoadingComplete: false,
-            searchLoading: true
-          })
+          if (that.data.searchLoadingComplete && !that.data.searchLoading) {
+            that.setData({
+              searchLoadingComplete: false,
+              searchLoading: true
+            })
+          }
         } else {
-          that.setData({
-            searchLoadingComplete: true,
-            searchLoading: false
-          })
+          if (!that.data.searchLoadingComplete && that.data.searchLoading) {
+            that.setData({
+              searchLoadingComplete: true,
+              searchLoading: false
+            })
+          }
         }
       }
     })

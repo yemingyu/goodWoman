@@ -144,6 +144,7 @@ function getAllDataStorage() {
   if (AllDataDicValue == null || AllDataDicValue == "") {
     AllDataDicValue = {}
   }
+  AllDataValue = []
   var i = 0
   for (var key in AllDataDicValue) {
     AllDataValue[i++] = AllDataDicValue[key]
@@ -196,7 +197,7 @@ function addAllDataStorageWithData(data, completion) {
     resultData["category"] = data["category"]
     resultData["title"] = data["title"]
     // 图片需要上传后获取链接才能使用
-    resultData["thingimage"] = data["imgSource"]
+    resultData["thingimage"] = data["thingimage"]
     // resultData["thingimage"] = "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg"
     // 时间处理
     resultData["ValidityDate"] = data["ValidityDate"]
@@ -224,8 +225,12 @@ function deleteAllDataStorageWithId(targetIdStr, completion) {
   }, 3000)
 }
 
-function updateAllDataStorageWithxxx() {
-
+function updateAllDataStorageWithId(targetIdStr, data, completion) {
+  setTimeout(() => {
+    AllDataDicValue[targetIdStr] = data;
+    wx.setStorageSync(AllDataDicKey, AllDataDicValue)
+    completion(true)
+  }, 3000)
 }
 
 function getCurrentId() {
@@ -253,5 +258,6 @@ module.exports = {
   addAllDataStorageWithData: addAllDataStorageWithData,
   AllCategory: AllCategory,
   getAllDataStorageWithId: getAllDataStorageWithId,
-  deleteAllDataStorageWithId: deleteAllDataStorageWithId
+  deleteAllDataStorageWithId: deleteAllDataStorageWithId,
+  updateAllDataStorageWithId: updateAllDataStorageWithId
 }
