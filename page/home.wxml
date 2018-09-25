@@ -43,7 +43,7 @@
       <view class="thingslist" wx:for="{{thingslist}}" wx:for-item="thing" wx:key="id" >
         <view class="thingsIntro" data-id="{{thing.id}}" bindtap='selectThing'>
           <!-- 物品缩略图  -->
-          <image class='thingimage' src="{{thing.thingimage}}">Test</image>
+          <image class='thingimage' style="width: 350rpx; height: 350rpx; background-color: #eeeeee;" mode="{{scaleToFill}}" src="{{thing.thingimage}}"></image>
           <!-- 类别tag  -->
           <view class='thingCategory'>{{thing.category}}</view>
           <!-- 标题  -->

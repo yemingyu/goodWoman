@@ -1,7 +1,103 @@
-<!--page/thingDetails/thingDetails.wxml-->
-<text>page/thingDetails/thingDetails.wxml</text>
+<!--page/newThing/newThing.wxml-->
+<view class="container">
+  <!-- <template is="head" data="{{title: 'choose/previewImage'}}"/> -->
 
-<view>{{thing.title}}</view>
-<view>{{thing.category}}</view>
-<view>{{thing.content}}</view>
-<view>{{thing.id}}</view>
+  <view class="page-body">
+    <form>
+      <view class="page-section">
+
+        <view class="weui-cells weui-cells_after-title">
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">物品名称</view>
+            </view>
+            <view class="weui-cell__bd">
+              <view class="weui-cells weui-cells_after-title">
+                  <input class="weui-input" bindinput="bindThingNameInput" bindblur="bindThingNameBlurInput" focus placeholder="{{inputThingValue}}" />
+              </view>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">物品类型</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker range="{{thingsCategoryType}}" bindchange="thingsCategoryTypeChange" value="{{thingsCategoryIndex}}" mode="selector">
+                <view class="weui-input">{{thingsCategoryType[thingsCategoryIndex]}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">有效期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{ValidityDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindValidityDateChange">
+                <view class="weui-input">{{ValidityDate}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">开封日期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{OpenDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindOpenDateChange">
+                <view class="weui-input">{{OpenDate}}</view>
+              </picker>
+            </view>
+          </view>
+
+          <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+              <view class="weui-label">提醒日期</view>
+            </view>
+            <view class="weui-cell__bd">
+              <picker mode="date" value="{{AlarmDate}}" start="2015-09-01" end="2100-09-01" bindchange="bindAlarmDateChange">
+                <view class="weui-input">{{AlarmDate}}</view>
+              </picker>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-cells">
+          <view class="weui-cell">
+            <view class="weui-cell__bd">
+              <view class="weui-uploader">
+                <view class="weui-uploader__hd">
+                  <view class="weui-uploader__title">点击可预览选好的图片</view>
+                  <!-- <view class="weui-uploader__info">{{imageList.length}}/{{count[countIndex]}}</view> -->
+                </view>
+                <view class="weui-uploader__bd">
+                  <view class="weui-uploader__files">
+                    <block wx:for="{{imageList}}" wx:for-item="thingImage">
+                      <view class="weui-uploader__file">
+                        <image class="weui-uploader__img" src="{{thingImage}}" data-src="{{thingImage}}" bindtap="previewThingImage"></image>
+                      </view>
+                    </block>
+                  </view>
+                  <view class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseThingImage"></view>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="btn-area">
+          <button type="primary" bindtap="completeSaveThing" disabled="{{completeBtndisabled}}" >保存</button>
+        </view>
+        <view class="btn-area">
+          <button type="warn" bindtap="deleteThing">删除</button>
+        </view>
+      </view>
+    </form>
+  </view>
+
+  <template is="foot" />
+</view>

@@ -392,20 +392,20 @@ Page({
 
   selectThing: function (e) {
     let id = e.currentTarget.dataset.id;
-    wx.showToast({
-      title: id,
-      icon: '',
-      image: '',
-      duration: 1000,
-      mask: true,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
+    // wx.showToast({
+    //   title: id,
+    //   icon: '',
+    //   image: '',
+    //   duration: 1000,
+    //   mask: true,
+    //   success: function(res) {},
+    //   fail: function(res) {},
+    //   complete: function(res) {},
+    // })
     wx.navigateTo({
       url: `thingDetails/thingDetails?id=` + id,
     })
-    console.log(id);
+    // console.log(id);
   },
 
   // 3 转发函数，固定部分，直接拷贝即可

@@ -103,7 +103,8 @@ function transformThingData(data) {
   resultData["id"] = data["id"]
   resultData["category"] = data["category"]
   resultData["title"] = data["title"]
-  resultData["thingimage"] = "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg"
+  resultData["thingimage"] = data["thingimage"]
+  // resultData["thingimage"] = "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg"
   // 时间处理
   resultData["ValidityDate"] = data["ValidityDate"]
   resultData["OpenDate"] = data["OpenDate"]
@@ -188,10 +189,6 @@ function getAllDataStorageWithReadyPage(page, completion) {
   }, 1000)
 }
 
-function getAllDataStorageWithxxx() {
-
-}
-
 function addAllDataStorageWithData(data, completion) {
   setTimeout(() => {
     var resultData = {}
@@ -214,8 +211,17 @@ function addAllDataStorageWithData(data, completion) {
   }, 3000)
 }
 
-function deleteAllDataStorageWithxxx() {
+function getAllDataStorageWithId(targetIdStr) {
+  var resultData = AllDataDicValue[targetIdStr]
+  return resultData
+}
 
+function deleteAllDataStorageWithId(targetIdStr, completion) {
+  setTimeout(() => {
+    delete AllDataDicValue[targetIdStr];
+    wx.setStorageSync(AllDataDicKey, AllDataDicValue)
+    completion(true)
+  }, 3000)
 }
 
 function updateAllDataStorageWithxxx() {
@@ -245,5 +251,7 @@ module.exports = {
   getAllDataStorageWithReadyPage: getAllDataStorageWithReadyPage,
   AllDataPageSize: AllDataPageSize,
   addAllDataStorageWithData: addAllDataStorageWithData,
-  AllCategory: AllCategory
+  AllCategory: AllCategory,
+  getAllDataStorageWithId: getAllDataStorageWithId,
+  deleteAllDataStorageWithId: deleteAllDataStorageWithId
 }

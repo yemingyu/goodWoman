@@ -252,8 +252,8 @@
 .thingimage {
   /* position: absolute; */
   margin:20rpx 20rpx 20rpx 20rpx;
-  height: 300rpx; 
-  width: 400rpx;
+  height: 350rpx; 
+  width: 350rpx;
 }
 
 .thingCategory {
@@ -334,7 +334,7 @@
   content: '';  
   width: 40rpx;  
   height: 40rpx;  
-  background: url(../image/plus.png) no-repeat;  
+  /* background: url(../image/plus.png) no-repeat;   */
   background-size: contain;  
   animation: rotate 1s linear infinite;  
 }  
