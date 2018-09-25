@@ -153,7 +153,9 @@ Page({
     // that.setData({
     //   searchLoading: true,  //把"上拉加载"的变量设为true，显示  
     // })
-
+    if (that.data.thingslist.length < (that.data.searchPageNum + 1) * DataDeal.AllDataPageSize) {
+      return
+    }
     if (!that.data.searchLoadingComplete) {
       that.setData({
         searchLoading: true,  //把"上拉加载"的变量设为true，显示
@@ -214,22 +216,38 @@ Page({
       }
     })
   },
+  getDataWithPage: function (data, page) {
+    var resultData = []
+    for (var i = 0; i < (page + 1) * DataDeal.AllDataPageSize; i++) {
+      resultData[i] = data[i]
+    }
+    return resultData
+  },
   refreshThings: function () {
     var that = this
+    var resultData
     // 刷新当前，需要把总共已经加载的page上传到服务端
-    DataDeal.getAllDataStorageWithReadyPage(that.data.searchPageNum, function (data) {
+    DataDeal.getAllDataStorageWithReadyPage(that.data.searchPageNum + 1, function (data) {
       if (that.data.thingslist.length == 0) {
+        // 获取first page数据
+        resultData = that.getDataWithPage(data, 0)
         that.setData({
-          thingslist: data,
+          thingslist: resultData,
         })
       } else {
-        for (var i = 0; i < data.length; i++) {
-          that.data.thingslist[i] = data[i]
-        }
+        resultData = that.getDataWithPage(data, that.data.searchPageNum)
+        // for (var i = 0; i < (that.data.searchPageNum + 1) * DataDeal.AllDataPageSize; i++) {
+        //   that.data.thingslist[i] = data[i]
+        // }
         that.setData({
-          thingslist: that.data.thingslist,
+          thingslist: resultData,
         })
-        if (that.data.thingslist.length > (that.data.searchPageNum) * DataDeal.AllDataPageSize) {
+        if (data.length > (that.data.searchPageNum + 1) * DataDeal.AllDataPageSize) {
+          that.setData({
+            searchLoadingComplete: false,
+            searchLoading: true
+          })
+        } else {
           that.setData({
             searchLoadingComplete: true,
             searchLoading: false

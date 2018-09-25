@@ -90,10 +90,10 @@ var AllDealedDataValue = [];
 var AllDataKey = "AllThingsKeyTest1";
 var AllDataPageSize = 5;
 var AllCurrentData = [];
-var AllDataCurrentIdKey = "AllDataCurrentIdKeyTest2"
+var AllDataCurrentIdKey = "AllDataCurrentIdKeyTest3"
 
 var AllDataDicValue = {};
-var AllDataDicKey = "AllThingsDicKeyTest";
+var AllDataDicKey = "AllThingsDicKeyTest1";
 // var AllDataDicValueIdKey = "AllDataDicValueIdKey"
 
 var AllCategory = ['水果', '化妆品', '饮料'];
