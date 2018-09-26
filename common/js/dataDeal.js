@@ -125,11 +125,11 @@ function transformThingData(data) {
 
   resultData["useProgress"] = costDaysPercent
   if (costDaysPercent > 90) {
-    resultData["progressColor"] = "red"
+    resultData["progressColor"] = "#e64340"
   } else if (costDaysPercent > 70) {
-    resultData["progressColor"] = "yellow"
+    resultData["progressColor"] = "#FFC346"
   } else {
-    resultData["progressColor"] = "green"
+    resultData["progressColor"] = "#1AAD19"
   }
   if (remainedDays <= 0) {
     resultData["expiredDate"] = "已过期"

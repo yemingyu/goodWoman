@@ -1,72 +1,74 @@
 <!--Page/home.wxml-->
 
 
-<!-- 搜索界面，点击首页的searchbar进入，进入时会隐藏首页  -->
-<view class='main-search-bar' hidden="{{hiddenSearch}}">
-  <include src="component/wxSearchView/wxSearchView.wxml" />    
-</view>
+<view class='container'>
+  <!-- 搜索界面，点击首页的searchbar进入，进入时会隐藏首页  -->
+  <view class='main-search-bar' hidden="{{hiddenSearch}}">
+    <include src="component/wxSearchView/wxSearchView.wxml" />    
+  </view>
 
- <view class="homeall" hidden="{{!hiddenSearch}}"> 
-  <!-- 整个home页在一个scroll-view中  -->
-  <scroll-view scroll-y="{{scrollEnabled}}" style="height: 1100rpx;" bindscrolltolower="scrollToLower" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}">
+  <view class="homeall" hidden="{{!hiddenSearch}}"> 
+    <!-- 整个home页在一个scroll-view中  -->
+    <scroll-view scroll-y="{{scrollEnabled}}" style="height: 1100rpx;" bindscrolltolower="scrollToLower" scroll-into-view="{{scrollToView}}" scroll-top="{{scrollTop}}">
 
-    <!-- 首页 search bar和新建button整体-->
-    <view class="gwhome-search-bar" id="gwhome-search-bar-id">
-      <!-- 首页searchbar  -->
-      <view class="gwhome-search-bar__form" bindtap='gwsearchOpenNavigate'>
-        <view class="gwuhome-search-bar__box">
-          <icon class="gwhome-icon-search_in-box" type="search" size="14"></icon>
-          <input type="text" class="gwhome-search-bar__input" placeholder="请输入查询内容" disabled='true' />
+      <!-- 首页 search bar和新建button整体-->
+      <view class="gwhome-search-bar" id="gwhome-search-bar-id">
+        <!-- 首页searchbar  -->
+        <view class="gwhome-search-bar__form" bindtap='gwsearchOpenNavigate'>
+          <view class="gwuhome-search-bar__box">
+            <icon class="gwhome-icon-search_in-box" type="search" size="14"></icon>
+            <input type="text" class="gwhome-search-bar__input" placeholder="请输入查询内容" disabled='true' />
+          </view>
+        </view> 
+        <!-- 首页新建button    -->
+        <view>
+          <view class="gwhome-search-bar__new-btn" bindtap="gwAddNewThing">
+              <text>新建</text>
+          </view> 
         </view>
       </view> 
-      <!-- 首页新建button    -->
-      <view>
-        <view class="gwhome-search-bar__new-btn" bindtap="gwAddNewThing">
-            <text>新建</text>
-        </view> 
+
+
+      
+
+
+      <!-- 物品选择器下拉菜单出来时，有个mask蒙层  -->
+      <view bindtap="hideAllChioce" class="choiceMask" hidden="{{!chioceDistrict&&!chioceSorting}}">
       </view>
-    </view> 
 
-
-    
-
-
-    <!-- 物品选择器下拉菜单出来时，有个mask蒙层  -->
-    <view bindtap="hideAllChioce" class="choiceMask" hidden="{{!chioceDistrict&&!chioceSorting}}">
-    </view>
-
-    <!-- 物品列表  -->
-    <view class='thingsall'>
-      <!-- TODO：物品展示列表 scrollview  -->
-      <!-- 参考天气，然后根据各种筛选setData  -->
-      <!-- <view class='thingsall'> -->
-      <view class="thingslist" wx:for="{{thingslist}}" wx:for-item="thing" wx:key="id" >
-        <view class="thingsIntro" data-id="{{thing.id}}" bindtap='selectThing'>
-          <!-- 物品缩略图  -->
-          <image class='thingimage' style="width: 350rpx; height: 350rpx; background-color: #eeeeee;" mode="{{scaleToFill}}" src="{{thing.thingimage}}"></image>
-          <!-- 类别tag  -->
-          <view class='thingCategory'>{{thing.category}}</view>
-          <!-- 标题  -->
-          <view class='thingTitle'>{{thing.title}}</view>
-          <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
-          <view class='thingUseProgressImg'></view> 
-          <view class='thingUseProgress'>
-            <progress percent="{{thing.useProgress}}" color="{{thing.progressColor}}" stroke-width="12" />
-          </view> 
-          <!-- 还剩多少天  -->
-          <view class='thingExpiredDate'>{{thing.expiredDate}}</view> 
-            <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
-            <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>  -->
+      <!-- 物品列表  -->
+      <view class='thingsall'>
+        <!-- TODO：物品展示列表 scrollview  -->
+        <!-- 参考天气，然后根据各种筛选setData  -->
+        <!-- <view class='thingsall'> -->
+        <view class="thingslist" wx:for="{{thingslist}}" wx:for-item="thing" wx:key="id" >
+          <view class="thingsIntro" data-id="{{thing.id}}" bindtap='selectThing'>
+            <!-- 物品缩略图  -->
+            <image class='thingimage' mode="{{scaleToFill}}" src="{{thing.thingimage}}"></image>
+            <!-- 类别tag  -->
+            <view class='thingCategory'>{{thing.category}}</view>
+            <!-- 标题  -->
+            <view class='thingTitle'>{{thing.title}}</view>
+            <!-- 用个progress表示 剩余的紧急程度 绿50% 黄70% 红90%  -->
+            <view class='thingUseProgressImg'></view> 
+            <view class='thingUseProgress'>
+              <progress percent="{{thing.useProgress}}" color="{{thing.progressColor}}" stroke-width="12" />
+            </view> 
+            <!-- 还剩多少天  -->
+            <view class='thingExpiredDate'>{{thing.expiredDate}}</view> 
+              <!-- <view class='thingsBasic thingCategory'>{{thing.category}}</view> 已使用 -->
+              <!-- <view class='thingsBasic thingExpiredDate'>{{thing.expiredDate}}</view>  -->
+              <view class="home-page-footer-line"></view>
+          </view>
         </view>
+
+        <!-- 下拉更多的展示 -->
+        <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
+        <!-- 下拉加载全部后显示 -->
+        <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> 
       </view>
 
-      <!-- 下拉更多的展示 -->
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>  
-      <!-- 下拉加载全部后显示 -->
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view> 
-    </view>
-
-  </scroll-view>
+    </scroll-view>
+  </view>
 </view>
-
 
