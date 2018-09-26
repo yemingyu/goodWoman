@@ -39,8 +39,8 @@ Page({
   chooseThingImage: function () {
     var that = this
     wx.chooseImage({
-      sourceType: 2,
-      sizeType: 1,
+      sourceType: ['camera', 'album'],
+      sizeType: ['original'],
       count: 1,
       success: function (res) {
         console.log(res)
@@ -48,6 +48,9 @@ Page({
           imageList: res.tempFilePaths
         })
         that.refreshCompleteButton()
+      },
+      fail: function (res) {
+        console.log(res)
       }
     })
   },
