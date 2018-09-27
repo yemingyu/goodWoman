@@ -163,8 +163,17 @@
 }
 
 .weui-search-bar__cancel-btn {
-  margin-left: 10px;
+  /* margin-left: 10px;
   line-height: 28px;
   color: #09bb07;
-  white-space: nowrap;
+  white-space: nowrap; */
+
+  width: 100rpx;
+  padding-left: 20rpx;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+  line-height: 60rpx;
+  /* width: 50rpx; */
+   /* background: #00ff00;  */
+  color: #09bb07; 
 }

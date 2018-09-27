@@ -1,54 +1,3 @@
-// // mock数据区
-// const firstPage = [{
-//   id: "1",
-//   category: "水果1",
-//   title: "苹果1",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 83,
-//   progressColor: "red",
-//   expiredDate: "七天后1"
-// },
-// {
-//   id: "2",
-//   category: "水果2",
-//   title: "苹果2",
-//   progressColor: "yellow",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 50,
-//   expiredDate: "七天后2"
-// },
-// {
-//   id: "3",
-//   category: "水果3",
-//   title: "苹果3",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 33,
-//   expiredDate: "七天后3"
-// },
-// {
-//   id: "4",
-//   category: "水果4",
-//   title: "苹果4",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 45,
-//   expiredDate: "七天后4"
-// },
-// {
-//   id: "5",
-//   category: "水果5",
-//   title: "苹果5",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 45,
-//   expiredDate: "七天后5"
-// },
-// {
-//   id: "6",
-//   category: "水果6",
-//   title: "苹果6",
-//   thingimage: "http://i3.hoopchina.com.cn/blogfile/201206/29/134095667484768.jpg",
-//   useProgress: 83,
-//   expiredDate: "七天后6"
-// }]
 
 // const districtListMock = [{ key: 1, value: "化妆品" }, {
 //   key: 2, value: "食品"
@@ -159,10 +108,40 @@ function getAllDataStorage() {
   return AllDealedDataValue
 }
 
+function getAllKeyDataStorageWithKey(key) {
+  var data = getAllDataStorage()
+  if (null == key || "" == key) {
+    return null
+  }
+  var resultData = []
+  // TODO: 搜索算法
+  for (var i = 0; i < data.length; i++) {
+    var title = data[i]["title"]
+    var category = data[i]["category"]
+    if (title && title.indexOf(key) != -1) {
+      resultData.add(data[i])
+    } else if (category && category.indexOf(key) != -1) {
+      resultData.push(data[i])
+    }
+  }
+  return resultData
+}
+
 function getDataWithPage(page) {
   var data = []
   for (var i = 0; i < AllDataPageSize; i++) {
     var item = AllDataValue[AllDataPageSize*page + i]
+    if (item != null && item != undefined) {
+      data[i] = transformThingData(item)
+    }
+  }
+  return data
+}
+
+function getDataWithKeyDataAndPage(keyData, page) {
+  var data = []
+  for (var i = 0; i < AllDataPageSize; i++) {
+    var item = keyData[AllDataPageSize * page + i]
     if (item != null && item != undefined) {
       data[i] = transformThingData(item)
     }
@@ -178,6 +157,14 @@ function getAllDataStorageWithPage(page, completion) {
     }, 1000)
 }
 
+function getAllDataStorageWithPageAndKey(page, key, completion) {
+  setTimeout(() => {
+    // TODO: 模拟从服务端获取数据
+    var keyData = getAllKeyDataStorageWithKey(key)
+    completion(getDataWithKeyDataAndPage(keyData, page))
+  }, 1000)
+}
+
 function getAllDataStorageWithReadyPage(page, completion) {
   setTimeout(() => {
     // TODO: 模拟从服务端获取数据
@@ -185,6 +172,18 @@ function getAllDataStorageWithReadyPage(page, completion) {
     var data = []
     for (var i = 0; i <= page; i++) {
       data = data.concat(getDataWithPage(i))
+    }
+    completion(data)
+  }, 1000)
+}
+
+function getAllDataStorageWithReadyPageAndKey(page, key, completion) {
+  setTimeout(() => {
+    // TODO: 模拟从服务端获取数据
+    var keyData = getAllKeyDataStorageWithKey(key)
+    var data = []
+    for (var i = 0; i <= page; i++) {
+      data = data.concat(getDataWithKeyDataAndPage(keyData, i))
     }
     completion(data)
   }, 1000)
@@ -259,5 +258,7 @@ module.exports = {
   AllCategory: AllCategory,
   getAllDataStorageWithId: getAllDataStorageWithId,
   deleteAllDataStorageWithId: deleteAllDataStorageWithId,
-  updateAllDataStorageWithId: updateAllDataStorageWithId
+  updateAllDataStorageWithId: updateAllDataStorageWithId,
+  getAllDataStorageWithPageAndKey: getAllDataStorageWithPageAndKey,
+  getAllDataStorageWithReadyPageAndKey: getAllDataStorageWithReadyPageAndKey
 }

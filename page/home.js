@@ -429,22 +429,22 @@ Page({
   // wxSearchClear: WxSearch.wxSearchClear,  // 清空函数
 
   // 4 搜索回调函数  
-  mySearchFunction: function (value) {
-    // do your job here
-    // 示例：跳转
-    wx.redirectTo({
-      url: '../index/index?searchValue=' + value
-    })
-  },
+  // mySearchFunction: function (value) {
+  //   // do your job here
+  //   // 示例：跳转
+  //   wx.redirectTo({
+  //     url: '../index/index?searchValue=' + value
+  //   })
+  // },
 
-  // 5 返回回调函数
-  myGobackFunction: function () {
-    // do your job here
-    // 示例：返回
-    wx.redirectTo({
-      url: '../index/index?searchValue=返回'
-    })
-  },
+  // // 5 返回回调函数
+  // myGobackFunction: function () {
+  //   // do your job here
+  //   // 示例：返回
+  //   wx.redirectTo({
+  //     url: '../index/index?searchValue=返回'
+  //   })
+  // },
 
 
   
