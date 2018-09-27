@@ -148,7 +148,7 @@ function wxSearchAddHisKey(inputValue) {
     if (value.indexOf(inputValue) < 0) {
       value.unshift(inputValue);
     }
-    if (value.length > 5) {
+    if (value.length > 4) {
       value.pop()
     }
     wx.setStorage({
