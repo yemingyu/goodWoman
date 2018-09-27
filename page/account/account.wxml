@@ -13,10 +13,22 @@
           <text class="page-body-text">未获取</text>
           <text class="page-body-text">点击绿色按钮可获取用户头像及昵称</text>
         </block> -->
-        <block wx:if="{{hasUserInfo === true}}">
+
+
+        <!-- <block wx:if="{{hasUserInfo === true}}">
           <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></image>
           <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-        </block>
+        </block> -->
+        <!-- <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data> -->
+        <view class='headView'>
+          <open-data mode='aspectFit' type='userAvatarUrl'></open-data>
+        </view>
+
+        <open-data class="userinfo-nickname" type="userNickName"></open-data>
+        <open-data class="userProvince" type="userProvince"></open-data>
+        <open-data class="userGender" type="userGender" lang="zh_CN"></open-data>
+
+
       </view>
       <!-- <view class="btn-area">
         <button type="primary" bindtap="getUserInfo">获取用户信息</button>
