@@ -1,7 +1,7 @@
 /* Page/home.wxss */
   
   /* search页面引用的css，后续给改造掉  */
-@import "component/wxSearchView/wxSearchView.wxss";    
+/* @import "component/wxSearchView/wxSearchView.wxss";     */
 
 /* home css */
 /* .homeall {

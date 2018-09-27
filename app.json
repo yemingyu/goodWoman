@@ -4,7 +4,8 @@
     "page/account/account",
     "page/search/gwsearch",
     "page/thingDetails/thingDetails",
-    "page/newThing/newThing"
+    "page/newThing/newThing",
+    "page/searchPage/searchPage"
   ],
   "window": {
     "navigationBarTextStyle": "black",

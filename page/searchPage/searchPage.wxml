@@ -1,0 +1,4 @@
+<!--page/searchPage.wxml-->
+<view class='main-search-bar'>
+  <include src="../component/wxSearchView/wxSearchView.wxml" />    
+</view>

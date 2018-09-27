@@ -3,9 +3,9 @@
 
 <view class='container'>
   <!-- 搜索界面，点击首页的searchbar进入，进入时会隐藏首页  -->
-  <view class='main-search-bar' hidden="{{hiddenSearch}}">
+  <!-- <view class='main-search-bar' hidden="{{hiddenSearch}}">
     <include src="component/wxSearchView/wxSearchView.wxml" />    
-  </view>
+  </view> -->
 
   <view class="homeall" hidden="{{!hiddenSearch}}"> 
     <!-- 整个home页在一个scroll-view中  -->
