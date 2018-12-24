@@ -60,7 +60,7 @@
 .gwhome-icon-search_in-box {
   position: absolute;
   left: 20rpx;
-  top: 18rpx; 
+  top: 22rpx; 
 }
 
 /* search bar */
@@ -68,6 +68,7 @@
   height: 68rpx;
   line-height: 68rpx;
   font-size: 34rpx;
+  margin-top: 4rpx;
 }
 
 .gwui-search-bar__label {
